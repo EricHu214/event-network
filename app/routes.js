@@ -1,6 +1,6 @@
 module.exports = function(app, passport) {
     // home page
     app.get('/', function(req, res) {
-        res.send('hello there');
+        res.render('../client/public/index.html');
     });
 };
