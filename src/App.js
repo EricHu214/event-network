@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import * as queries from './api/queries.js'
 import SearchView from './views/SearchView.js'
 import DetailsView from './views/DetailsView.js'
 import LoginView from './views/LoginView.js'
@@ -10,85 +11,6 @@ import AdvancedSearchView from './views/AdvancedSearchView.js'
 
 let mockData = {
   events: [
-  {
-    id:1,
-    name: "Monster Jam!",
-    description: "This is Monster Jam!",
-    additionalInfo: "This is a monster jam you can enjoy.",
-    images: [{url: "https://static.pexels.com/photos/881608/pexels-photo-881608.jpeg"}],
-    priceRanges: [{max: 60, min: 50}],
-    dates:{
-      start: {
-        localDate: "October 31st, 2015",
-        localTime: "3:00 PM"
-      },
-      end: {
-        localDate: "October 31st, 2015",
-        localTime: "4:00 PM"
-      }
-    },
-    place: {
-      country: "Canada",
-      city: "Toronto",
-      address: "123 sldkfj"
-    },
-    _embedded: {
-      venues: [{address: {line1: 'a'}, city: {name:'samae'}, country: {name: "US"}}]
-    }
-  },
-
-  {
-    id:2,
-    name: "Exciting Event",
-    description: "A very exciting event",
-    additionalInfo: "This is a very exciting event",
-    images: [{url: "https://static.pexels.com/photos/881608/pexels-photo-881608.jpeg"}],
-    priceRanges: [{max: 60, min: 50}],
-    dates: {
-      start: {
-        localDate: "October 31st, 2015",
-        localTime: "3:00 PM"
-      },
-      end: {
-        localDate: "October 31st, 2015",
-        localTime: "4:00 PM"
-      }
-    },
-    place: {
-      country: "Canada",
-      city: "Toronto",
-      address: "123 sldkfj"},
-    _embedded: {
-      venues: [{address: {line1: 'a'}, city: {name:'samae'}, country: {name: "US"}}]
-    }
-    },
-
-    {
-      id:3,
-      name: "Exciting Event",
-      description: "Some Exciting Event",
-      additionalInfo: "This is some exciting event.",
-      images: [{url: "https://static.pexels.com/photos/881608/pexels-photo-881608.jpeg"}],
-      priceRanges: [{max: 60, min: 50}],
-      dates: {
-        start: {
-          localDate: "October 31st, 2015",
-          localTime: "3:00 PM"
-        },
-        end: {
-          localDate: "October 31st, 2015",
-          localTime: "4:00 PM"
-        }
-      },
-      place: {
-        country: "Canada",
-        city: "Toronto",
-        address: "123 sldkfj"
-      },
-      _embedded: {
-        venues: [{address: {line1: 'a'}, city: {name:'samae'}, country: {name: "US"}}]
-      }
-    },
   ]
 }
 
@@ -104,25 +26,26 @@ let mockData4 = {
 }
 
 var currentUser = "ohohoh";
+const baseEvent = {
+  dates: {start: {localDate: "", localTime: ""}},
+  priceRanges: [{min: 100}],
+  _embedded: {venues: [{address: {line1: ""}, city: {name: ""}, country: {name: ""}}]}
+}
 
+function cleanData (response) {
+  if (response._embedded) {
+    let r = response._embedded
+    let newEvents = r.events.map(x => Object.assign({}, baseEvent, x))
+    return {events: newEvents}
+  }
+  return {events: []}
+}
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = this.init();
-    this.loadData();
-  }
-
-  loadData = () => {
-    fetch('https://app.ticketmaster.com/discovery/v2/events.json?size=3&apikey=rgH0sHA67HAtSurrdPQON985G4BAMWTY',
-    {
-      method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson._embedded)
-      this.setState({searchViewData: responseJson._embedded})
-    })
+    queries.loadInitial().then((response) => {this.setState({searchViewData: response._embedded})})
   }
 
   init = () => {
@@ -152,11 +75,11 @@ class App extends Component {
   switchState = (id, queryData) => {
     if (id === 1) {
       this.setState({view: id});
-      this.loadData();
+        queries.searchEventKeyword(queryData).then((response) => {
+        this.setState({searchViewData: cleanData(response)})})
     }
     else if (id === 2) {
       this.setState({view: id, detailsViewData: queryData, userProfileData: mockData4[currentUser]});
-      this.loadData();
     }
     else if (id === 3) this.setState({view: id, loginViewData: queryData});
     else if (id === 4) this.setState({view: id, userProfileData: mockData4[currentUser]});
@@ -164,6 +87,20 @@ class App extends Component {
   }
 
   render() {
+    const response = {
+      lat: {something: "hello", hello: []},
+      lng: 0.39440
+    }
+
+    let item = {
+      lat: {hello: ["something"]},
+      address: '14-22 Elder St, London, E1 6BT, UK'
+    }
+
+    let newItem = Object.assign(item, response);
+
+    console.log(newItem );
+
     let view = null;
     if (this.state.view === 1) {
       view = <SearchView switchState={this.switchState} {...this.state.searchViewData}/>;
@@ -188,7 +125,6 @@ class App extends Component {
         <SearchBar loggedIn={this.state.loggedIn} logOut={this.logOut} switchState={this.switchState}/>
         {view}
       </div>
-
     );
   }
 }

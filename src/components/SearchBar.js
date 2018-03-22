@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import '../App.css';
 
 /*
-* Construct the search bar for use at the top of the application 
+* Construct the search bar for use at the top of the application
 */
 class SearchBar extends Component {
+  handleSubmit = (e, text) => {
+    e.preventDefault()
+    let parsedKeywords = this.refs.keywords.value.split(' ').join('+')
+    this.props.switchState(1, "&keyword="+parsedKeywords)
+  }
   render() {
     return (
       <div className="searchBar">
         <div style={{overflow: "hidden"}}>
           <div className="searchBarSection1">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <label>
-                <input placeholder="Search" type="text" className="searchBarInput"/>
+                <input ref="keywords" placeholder="Search" type="text" className="searchBarInput"/>
               </label>
-              <input className="searchButton" type="submit" value="❯" />
+              <input className="searchButton" type="submit" onClick={this.handleSubmit} value="❯" />
             </form>
             <button onClick={() => this.props.switchState(5)} className="searchButton">+</button>
           </div>
