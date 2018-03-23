@@ -9,11 +9,6 @@ import SearchBar from './components/SearchBar.js'
 import AdvancedSearchView from './views/AdvancedSearchView.js'
 // key = 	rgH0sHA67HAtSurrdPQON985G4BAMWTY
 
-let mockData = {
-  events: [
-  ]
-}
-
 let mockData4 = {
   "ohohoh" : {
     username:"ohohoh",
@@ -26,14 +21,16 @@ let mockData4 = {
 }
 
 var currentUser = "ohohoh";
-const baseEvent = {
-  dates: {start: {localDate: "", localTime: ""}},
-  priceRanges: [{min: 100}],
-  _embedded: {venues: [{address: {line1: ""}, city: {name: ""}, country: {name: ""}}]}
-}
 
 function cleanData (response) {
   if (response._embedded) {
+    const baseEvent = {
+      pleaseNote: "No information provided",
+      info: "No information provided",
+      dates: {start: {localDate: "", localTime: ""}},
+      priceRanges: [{min: "None"}],
+      _embedded: {venues: [{address: {line1: ""}, city: {name: ""}, country: {name: ""}}]}
+    }
     let r = response._embedded
     let newEvents = r.events.map(x => Object.assign({}, baseEvent, x))
     return {events: newEvents}
@@ -49,10 +46,11 @@ class App extends Component {
   }
 
   init = () => {
-    return {searchViewData: mockData, view: 1};
+    return {searchViewData: {events: []}, view: 1};
   }
 
-  logIn = () => {
+  logIn = (user, pass, email) => {
+    console.log(user)
     this.setState({loggedIn: true})
   }
 
@@ -75,7 +73,7 @@ class App extends Component {
   switchState = (id, queryData) => {
     if (id === 1) {
       this.setState({view: id});
-        queries.searchEventKeyword(queryData).then((response) => {
+      if (queryData) queries.searchEventKeyword(queryData).then((response) => {
         this.setState({searchViewData: cleanData(response)})})
     }
     else if (id === 2) {
@@ -87,20 +85,6 @@ class App extends Component {
   }
 
   render() {
-    const response = {
-      lat: {something: "hello", hello: []},
-      lng: 0.39440
-    }
-
-    let item = {
-      lat: {hello: ["something"]},
-      address: '14-22 Elder St, London, E1 6BT, UK'
-    }
-
-    let newItem = Object.assign(item, response);
-
-    console.log(newItem );
-
     let view = null;
     if (this.state.view === 1) {
       view = <SearchView switchState={this.switchState} {...this.state.searchViewData}/>;

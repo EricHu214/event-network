@@ -13,3 +13,9 @@ export function searchEventKeyword(keywords) {
   })
   .then((response) => response.json())
 }
+
+export function getEventDetails(id) {
+  return fetch('https://app.ticketmaster.com/discovery/v2/events/'+id+'.json?apikey=rgH0sHA67HAtSurrdPQON985G4BAMWTY',
+  {method: 'Get'})
+  .then((response) => response.json())
+}

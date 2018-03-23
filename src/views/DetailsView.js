@@ -28,17 +28,22 @@ class DetailsView extends Component {
         </div>;
       }
     }
+    console.log(this.props)
     return (
       <div className="detailsBoxContainer">
         <div className="paper detailsBox" style={{backgroundImage: 'url('+this.props.images[0].url+')'}}>
           <div className="detailsTextBox">
             <div className="header1">{this.props.name}</div>
-            <div>{this.props.description}</div>
-            <div>{this.props.additionalInfo}</div>
-            <div>{this.props.url}</div>
-            <div className="date1">{this.props.dates.start.localTime} {this.props.dates.start.localDate}</div>
+            <div className="header2">{this.props.dates.start.localTime}, {this.props.dates.start.localDate}</div>
+            <div className="header2">ABOUT</div>
+            <div>{this.props._embedded.venues[0].name}</div>
+            <div>{this.props._embedded.venues[0].address ? this.props._embedded.venues[0].address.line1 : "None"}</div>
+            <div>${this.props.priceRanges[0].min} - ${this.props.priceRanges[0].max}</div>
+            <div className="header2">INFO</div>
+            <div>{this.props.info}</div>
+            <div></div>
+            <div className="date1"><a href={this.props.url}>Buy tickets now</a></div>
             {div}
-
           </div>
         </div>
       </div>

@@ -21,7 +21,12 @@ class FormField extends Component {
       <div>
         <div className="formFieldBox">
           <label className="date1 formFieldLabel"> {this.props.label}
-            <input onChange={evt => this.updateInputValue(evt)} className="formFieldInput" type="text" name={this.props.label} />
+            {this.props.choices
+              ? <select onChange={evt => this.updateInputValue(evt)}>
+                  <option key="Any" value="">Any</option>
+                  {this.props.choices.map((x) => (<option key={x} value={x}>{x}</option>))}
+                </select>
+              : <input onChange={evt => this.updateInputValue(evt)} className="formFieldInput" type="text" name={this.props.label} />}
           </label>
         </div>
       </div>
