@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+
+
 import './App.css';
 import * as queries from './api/queries.js'
 import SearchView from './views/SearchView.js'
@@ -105,10 +111,20 @@ class App extends Component {
       view = null;
     }
     return (
+      <Router>
       <div className="App">
+
         <SearchBar loggedIn={this.state.loggedIn} logOut={this.logOut} switchState={this.switchState}/>
-        {view}
+     
+       
+
+          <div>
+            <Route exact path="/home" components = {AdvancedSearchView}/>
+            {view}
+          </div>
+        
       </div>
+      </Router>
     );
   }
 }
