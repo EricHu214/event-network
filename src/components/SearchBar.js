@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import MaterialIcon from 'material-icons-react'
 
 /*
 * Construct the search bar for use at the top of the application
@@ -19,9 +20,13 @@ class SearchBar extends Component {
               <label>
                 <input ref="keywords" placeholder="Search" type="text" className="searchBarInput"/>
               </label>
-              <input className="searchButton" type="submit" onClick={this.handleSubmit} value="❯" />
+              <button style={{paddingTop: 5}} className="searchButton" type="submit" onClick={this.handleSubmit} value="❯">
+                <MaterialIcon color='#878787' icon="chevron_right" size='tiny'/>
+              </button>
             </form>
-            <button onClick={() => this.props.switchState(5)} className="searchButton">+</button>
+            <button style={{paddingTop: 5, paddingLeft: 5}} onClick={() => this.props.switchState(5)} className="searchButton">
+              <MaterialIcon color='#878787' icon="playlist_add" size='tiny' />
+            </button>
           </div>
           <div className="searchBarSection2">
             {this.props.loggedIn ? (

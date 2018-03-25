@@ -62,6 +62,21 @@ body {
   bottom: 0;
 }
 
+.errorBox {
+  overflow: auto;
+}
+
+.errorText {
+  vertical-align: middle;
+  display: inline-flex;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #8c8c8c;
+  padding-bottom: 13px;
+  margin-left: 8px;
+  font-size: 16px;
+}
+
 .eventBox {
   cursor: pointer;
   text-align: left;
@@ -111,7 +126,7 @@ body {
 }
 
 .formFieldLabel {
-  width: 300px;
+  min-width: 600px;
 }
 
 .generalButton {
@@ -261,7 +276,7 @@ body {
 
 .singleColumn {
   display: inline-block;
-  max-width: 300px;
+  min-width: 500px;
   text-align: left;
 }
 

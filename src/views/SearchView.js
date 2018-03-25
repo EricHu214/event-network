@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import EventBox from '../components/EventBox.js'
+import Error from '../components/Error.js'
 
 /*
 * Construct the main page for the user app where the user can search for events
@@ -17,9 +18,12 @@ class SearchView extends Component {
   render() {
     return (
       <div className="App">
-        <div className="eventBoxContainer">
-          {this.props.events.map(x => <EventBox onClick={() => this.showEvent(x.id)} key={x.id} {...x}/>)}
-        </div>
+        { this.props.events.length > 0
+          ? <div className="eventBoxContainer">
+            {this.props.events.map(x => <EventBox onClick={() => this.showEvent(x.id)} key={x.id} {...x}/>)}
+          </div>
+          : <Error label="Nothing to display here"/>
+        }
       </div>
     );
   }
