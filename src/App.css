@@ -35,7 +35,7 @@ body {
 
 .date1 {
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 3px;
   margin-left: 10px;
   margin-bottom: 2px;
   letter-spacing: 2px;
@@ -60,6 +60,21 @@ body {
   padding: 20px;
   position: relative;
   bottom: 0;
+}
+
+.errorBox {
+  overflow: auto;
+}
+
+.errorText {
+  vertical-align: middle;
+  display: inline-flex;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #8c8c8c;
+  padding-bottom: 13px;
+  margin-left: 8px;
+  font-size: 16px;
 }
 
 .eventBox {
@@ -111,7 +126,7 @@ body {
 }
 
 .formFieldLabel {
-  width: 300px;
+  min-width: 600px;
 }
 
 .generalButton {
@@ -261,7 +276,7 @@ body {
 
 .singleColumn {
   display: inline-block;
-  max-width: 300px;
+  min-width: 500px;
   text-align: left;
 }
 

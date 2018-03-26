@@ -28,7 +28,6 @@ class DetailsView extends Component {
         </div>;
       }
     }
-    console.log(this.props)
     return (
       <div className="detailsBoxContainer">
         <div className="paper detailsBox" style={{backgroundImage: 'url('+this.props.images[0].url+')'}}>
