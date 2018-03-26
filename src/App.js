@@ -44,6 +44,12 @@ function cleanData (response) {
   return {events: []}
 }
 
+function withProps(Component, props) {
+  return function(matchProps) {
+    return <Component {...props} {...matchProps} />
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -110,16 +116,16 @@ class App extends Component {
     else {
       view = null;
     }
+    let a = this.switchState;
+    let b = this.state.searchViewData;
     return (
       <Router>
       <div className="App">
 
         <SearchBar loggedIn={this.state.loggedIn} logOut={this.logOut} switchState={this.switchState}/>
-     
-       
 
           <div>
-            <Route exact path="/home" components = {AdvancedSearchView}/>
+            
             {view}
           </div>
         
