@@ -72,6 +72,22 @@ class App extends Component {
 
   interested = (new_id, new_name) => {
     mockData4[currentUser].goingEvents[new_id] = new_name;
+
+    var a = {username: currentUser, event_ID: new_id };
+
+    var data = new FormData();
+
+    data.append( "json", JSON.stringify( a ) );
+
+    fetch('http://localhost:5000/Jacky_add',
+    {
+    method: "POST",
+    body: data
+    })
+    
+    .then(function(res){ return res.json(); })
+    .then(function(data){ alert( JSON.stringify( data ) ) })
+
     this.setState({});
     console.log("done");
   }
@@ -124,10 +140,7 @@ class App extends Component {
 
         <SearchBar loggedIn={this.state.loggedIn} logOut={this.logOut} switchState={this.switchState}/>
 
-          <div>
-            
-            {view}
-          </div>
+        {view}
         
       </div>
       </Router>
