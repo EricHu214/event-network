@@ -8,7 +8,7 @@ var userProfileSchema = mongoose.Schema({
     username     : String,
     email        : String,
     password     : String,
-    events       : [Number]
+    events       : [String]
 });
 
 // generating a hash

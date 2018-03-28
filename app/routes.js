@@ -39,6 +39,30 @@ module.exports = function(app, passport) {
         res.json({success:user, message:info});
       })(req, res);
     });
+
+    app.post('/add_event', function(req, res) {
+      console.log(req.user);
+        UserProfile.update({
+            username: req.body.username
+        }, {
+          $push: {
+            events: req.body.eventID
+          }
+        },
+        function(err, result) {
+          if(err) {
+            res.status(404);
+            res.send(err);
+          } else {
+            //console.log(result);
+          }
+        });
+        //console.log('omg why is this not working??????');
+        /*UserProfile.findOne({username:req.user.username})
+        .then(function(data) {
+            console.log("OMG OMG OMG OMG" + data);
+        });*/
+    });
 }
 
 function loggedIn(req, res, next) {
