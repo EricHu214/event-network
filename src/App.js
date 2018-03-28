@@ -64,7 +64,7 @@ class App extends Component {
   }
 
   interested = (new_id, new_name) => {
-    // mockData4.goingEvents[new_id] = new_name;
+    mockData4.goingEvents[new_id] = new_name;
 
     var data = {eventID: new_id, username: mockData4.username};
     fetch("http://localhost:5000/add_event", {
@@ -78,6 +78,8 @@ class App extends Component {
     .catch(error => console.error('Error:', error))
     .then(response => {
     })
+    this.setState({});
+    console.log("added");
   }
 
   notInterested = (id) => {
