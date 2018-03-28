@@ -65,6 +65,23 @@ class App extends Component {
 
   interested = (new_id, new_name) => {
     mockData4.goingEvents[new_id] = new_name;
+
+    var a = {username: mockData4.username, event_ID: new_id };
+
+    var data = new FormData();
+
+    data.append( "json", JSON.stringify( a ) );
+
+    fetch('http://localhost:5000/event_add',
+    {
+    method: "POST",
+    body: data
+    })
+
+    
+    .then(function(data){ alert( JSON.stringify( data ) ) })
+
+
     this.setState({});
     console.log("done");
   }

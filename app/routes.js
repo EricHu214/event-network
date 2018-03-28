@@ -39,6 +39,10 @@ module.exports = function(app, passport) {
         res.json({success:user, message:info});
       })(req, res);
     });
+
+    app.post('/event_add', mainController.event_add); 
+
+
 }
 
 function loggedIn(req, res, next) {
