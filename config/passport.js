@@ -38,21 +38,21 @@ module.exports = function(passport) {
 
         // asynchronous
         process.nextTick(function() {
-            User.findOne({ 'local.username' :  username }, function(err, user) {
+            User.findOne({ 'username' :  username }, function(err, user) {
                 // if there are any errors, return the error
                 if (err)
                     return done(err);
 
                 // if no user is found, return the message
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    return done(null, false,  'No user found.');
 
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    return done(null, false, 'Oops! Wrong password.');
 
                 // all is well, return user
                 else
-                    return done(null, user);
+                    return done(null, user, "success");
             });
         });
 
@@ -70,7 +70,6 @@ module.exports = function(passport) {
     function(req, email, password, done) {
         if (email)
             email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
-
         // asynchronous
         process.nextTick(function() {
             // if the user is not already logged in:
@@ -78,8 +77,8 @@ module.exports = function(passport) {
                 User.findOne(
                   {
                    $or: [
-                          { 'local.email' : email },
-                          { 'local.username' : req.body.username }
+                          { 'email' : email },
+                          { 'username' : req.body.username }
                         ]
                  }, function(err, user) {
                     // if there are any errors, return the error
@@ -88,22 +87,22 @@ module.exports = function(passport) {
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'email or username is already taken.'));
+                        return done(null, false, 'email or username is already taken.');
                     } else {
 
                         // create the user
                         var newUser            = new User();
 
-                        newUser.local.email    = email;
-                        newUser.local.password = newUser.generateHash(password);
-                        newUser.local.username = req.body.username;
-                        newUser.local.events = [];
+                        newUser.email    = email;
+                        newUser.password = newUser.generateHash(password);
+                        newUser.username = req.body.username;
+                        newUser.events = [];
 
                         newUser.save(function(err) {
                             if (err)
                                 return done(err);
 
-                            return done(null, newUser);
+                            return done(null, newUser, "success");
                         });
                     }
 
@@ -111,7 +110,7 @@ module.exports = function(passport) {
             // if the user is logged in but has no local account...
           } else {
                 // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
-                return done(null, req.user);
+                return done(null, req.user, "already signed in");
             }
 
         });

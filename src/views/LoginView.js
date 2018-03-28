@@ -18,25 +18,83 @@ class LoginView extends Component {
   }
 
   submitRegister = () => {
-    let user = this.refs.rUsername.state.value
-    let pass = this.refs.rPassword.state.value
+    let username = this.refs.rUsername.state.value
+    let password = this.refs.rPassword.state.value
     let email = this.refs.rEmail.state.value
-    Promise.reject("lskdjf")
-    .then(returnValue => {
-      this.setState({error: ""});
-      this.props.logIn(user, pass, email);
-      this.props.switchState(1);
+
+    var data = {username, password, email}
+    console.log(data);
+
+    var result = fetch("http://localhost:5000/signup", {
+      method: 'POST',
+      headers: {
+      'content-type': 'application/json'
+      },
+      body:JSON.stringify(data)
+
     })
-    .catch(err => {
-      this.setState({error: err});
-    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log(response.success);
+      if (response.success) {
+        console.log(response.message);
+        this.setState({error: ""});
+        this.props.logIn(username, password, email, response.success);
+        this.props.switchState(1);
+      }
+      else {
+        console.log(response.message);
+        this.setState({error: response.message});
+      }});
+
+
+
+
+
+    // Promise.resolve(result)
+    // .then(returnValue => {
+    //   console.log("hi");
+    //   this.setState({error: ""});
+    //   this.props.logIn(username, password, email);
+    //   this.props.switchState(1);
+    // })
+    // .catch(err => {
+    //   this.setState({error: err});
+    // })
   }
 
   submitLogin = () => {
-    let user = this.refs.lUsername.state.value;
-    let pass = this.refs.lPassword.state.value;
-    this.props.logIn(user, pass);
-    this.props.switchState(1);
+    let username = this.refs.lUsername.state.value;
+    let password = this.refs.lPassword.state.value;
+
+    var data = {username, password}
+    console.log(data);
+
+    var result = fetch("http://localhost:5000/login", {
+      method: 'POST',
+      headers: {
+      'content-type': 'application/json'
+      },
+      body:JSON.stringify(data)
+
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log(response.success);
+      if (response.success) {
+        console.log(response.message);
+        this.setState({error: ""});
+        this.props.logIn(username, password, "", response.success);
+        this.props.switchState(1);
+      }
+      else {
+        console.log(response.message);
+        this.setState({error: response.message});
+      }});
+    // this.props.logIn(user, pass);
+    // this.props.switchState(1);
   }
 
   render() {

@@ -1,7 +1,8 @@
 require('dotenv').config();
 // get all the tools
 var express  = require('express');
-
+var session = require('express-session');
+var cors = require('cors')
 var app      = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
@@ -13,11 +14,13 @@ var session      = require('express-session');
 var port     = process.env.PORT || 5000;
 
 // set up
+require('./config/passport')(passport);
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URI);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.set('views', __dirname + '/views');

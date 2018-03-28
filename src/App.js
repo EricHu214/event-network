@@ -10,17 +10,13 @@ import AdvancedSearchView from './views/AdvancedSearchView.js'
 // key = 	rgH0sHA67HAtSurrdPQON985G4BAMWTY
 
 let mockData4 = {
-  "ohohoh" : {
-    username:"ohohoh",
-    description:"Hello there. My name is ohohoh and welcome to my profile!",
-    country:"This one",
-    goingEvents: {
-      1:"Monster Jam!"
-    }
+  username:"ohohoh",
+  description:"Hello there. Welcome to my profile!",
+  country:"country: Canada",
+  goingEvents: {
+    1:"Monster Jam!"
   }
 }
-
-var currentUser = "ohohoh";
 
 function cleanData (response) {
   if (response._embedded) {
@@ -49,8 +45,10 @@ class App extends Component {
     return {searchViewData: {events: []}, view: 1};
   }
 
-  logIn = (user, pass, email) => {
+  logIn = (user, pass, email, userInfo) => {
     console.log(user)
+    mockData4.username = user
+    mockData4.goingEvents = userInfo.events
     this.setState({loggedIn: true})
   }
 
@@ -59,13 +57,13 @@ class App extends Component {
   }
 
   interested = (new_id, new_name) => {
-    mockData4[currentUser].goingEvents[new_id] = new_name;
+    mockData4.goingEvents[new_id] = new_name;
     this.setState({});
     console.log("done");
   }
 
   notInterested = (id) => {
-    delete mockData4[currentUser].goingEvents[id];
+    delete mockData4.goingEvents[id];
     this.setState({});
     console.log("deleted");
   }
@@ -77,10 +75,10 @@ class App extends Component {
         this.setState({searchViewData: cleanData(response)})})
     }
     else if (id === 2) {
-      this.setState({view: id, detailsViewData: queryData, userProfileData: mockData4[currentUser]});
+      this.setState({view: id, detailsViewData: queryData, userProfileData: mockData4});
     }
     else if (id === 3) this.setState({view: id, loginViewData: queryData});
-    else if (id === 4) this.setState({view: id, userProfileData: mockData4[currentUser]});
+    else if (id === 4) this.setState({view: id, userProfileData: mockData4});
     else if (id === 5) this.setState({view: id});
   }
 

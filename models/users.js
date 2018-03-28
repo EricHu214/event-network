@@ -18,7 +18,7 @@ userProfileSchema.methods.generateHash = function(password) {
 
 // checking if password is valid
 userProfileSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return bcrypt.compareSync(password, this.password);
 };
 
 // // create the model for users and generalize it to our app
