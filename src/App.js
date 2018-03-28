@@ -53,7 +53,14 @@ class App extends Component {
   }
 
   logOut = () => {
-    this.setState({loggedIn: false})
+    fetch("http://localhost:5000/logout", {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log(response.message)
+      this.setState({loggedIn: false})
+    });
   }
 
   interested = (new_id, new_name) => {

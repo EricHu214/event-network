@@ -4,11 +4,19 @@ var UserProfile = require('../models/users');
 module.exports = function(app, passport) {
     // home page
     app.get('/home', function(req, res) {
+
         res.send('hello there ohoho');
     });
 
     // seed sample user
     app.get('/seedUser', mainController.seedUser);
+
+    app.get('/logout', function(req, res) {
+        req.logout();
+        req.session.save(function() {
+            res.json({message:"logged out"});
+        });
+    });
 
     // process the login form
     app.post('/login', function(req, res) {

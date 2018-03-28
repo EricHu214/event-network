@@ -25,7 +25,7 @@ class LoginView extends Component {
     var data = {username, password, email}
     console.log(data);
 
-    var result = fetch("http://localhost:5000/signup", {
+    fetch("http://localhost:5000/signup", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'
@@ -71,7 +71,7 @@ class LoginView extends Component {
     var data = {username, password}
     console.log(data);
 
-    var result = fetch("http://localhost:5000/login", {
+    fetch("http://localhost:5000/login", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'
