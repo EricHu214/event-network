@@ -40,7 +40,9 @@ module.exports = function(app, passport) {
       })(req, res);
     });
 
-    app.post('/add_event', mainController.addEvent);
+    app.post('/interested', mainController.addEvent);
+
+    app.post('/uninterested', mainController.deleteEvent);
 }
 
 function loggedIn(req, res, next) {

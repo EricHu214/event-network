@@ -67,7 +67,8 @@ class App extends Component {
     mockData4.goingEvents[new_id] = new_name;
 
     var data = {eventID: new_id, username: mockData4.username};
-    fetch("http://localhost:5000/add_event", {
+
+    fetch("http://localhost:5000/interested", {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -78,12 +79,28 @@ class App extends Component {
     .catch(error => console.error('Error:', error))
     .then(response => {
     })
+
     this.setState({});
     console.log("added");
   }
 
   notInterested = (id) => {
     delete mockData4.goingEvents[id];
+
+    var data = {eventID: id, username: mockData4.username};
+
+    fetch("http://localhost:5000/uninterested", {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+    })
+
     this.setState({});
     console.log("deleted");
   }
