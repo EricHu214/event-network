@@ -26,7 +26,7 @@ class UserProfileView extends Component {
         <div className="date1">Interested Events</div>
         <div>
           {interestedList.map(x => <button className="generalButton" onClick={() =>
-            this.showEvent(x)} key={this.props.goingEvents[x]}>{this.props.goingEvents[x]}</button>)}
+            this.props.link_to_event(this.props.goingEvents[x])} key={this.props.goingEvents[x]}>{this.props.find_name(this.props.goingEvents[x])}</button>)}
         </div>
       </div>
     );

@@ -18,6 +18,8 @@ let mockData4 = {
   }
 }
 
+var q = {};
+
 function cleanData (response) {
   if (response._embedded) {
     const baseEvent = {
@@ -46,7 +48,7 @@ class App extends Component {
     .catch(error => console.error('Error:', error))
     .then(response1 => {
       console.log(response1)
-      queries.loadInitial().then((response) => {this.setState({searchViewData: response._embedded})})
+      queries.loadInitial().then((response) => {q=response._embedded;this.setState({searchViewData: response._embedded})})
     })
     .catch(error => console.error('Error:', error));
   }
@@ -76,7 +78,7 @@ class App extends Component {
   }
 
   interested = (new_id, new_name) => {
-    mockData4.goingEvents[new_id] = new_name;
+
 
     var data = {eventID: new_id, username: mockData4.username};
 
@@ -90,14 +92,14 @@ class App extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
+      this.setState({});
+      console.log("added");
     })
 
-    this.setState({});
-    console.log("added");
   }
 
   notInterested = (id) => {
-    delete mockData4.goingEvents[id];
+
 
     var data = {eventID: id, username: mockData4.username};
 
@@ -111,10 +113,23 @@ class App extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
+      this.setState({});
+      console.log("deleted");
     })
 
-    this.setState({});
-    console.log("deleted");
+
+  }
+
+  link_to_event = (id) => {
+    console.log(id);
+    console.log(q.events);
+
+    let obj = q.events.find(o => o.id === id);
+    this.switchState(2, obj);
+  }
+
+  find_name = (id) => {
+    return q.events.find(o => o.id === id).name
   }
 
   switchState = (id, queryData) => {
@@ -143,7 +158,7 @@ class App extends Component {
       view = <LoginView logIn={this.logIn} switchState={this.switchState} {...this.state.loginViewData}/>;
     }
     else if (this.state.view === 4) {
-      view = <UserProfileView switchState={this.switchState} {...this.state.userProfileData} searchViewData={this.state.searchViewData}/>;
+      view = <UserProfileView find_name = {this.find_name} link_to_event = {this.link_to_event} switchState={this.switchState} {...this.state.userProfileData} searchViewData={this.state.searchViewData}/>;
     }
     else if (this.state.view === 5) {
       view = <AdvancedSearchView switchState={this.switchState} />
