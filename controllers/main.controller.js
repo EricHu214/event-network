@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 module.exports = {
   seedUser : seedUser,
   addEvent : addEvent,
-  deleteEvent : deleteEvent,
+  deleteEvent : deleteEvent
 }
 
 function seedUser(req, res) {
@@ -18,38 +18,63 @@ function seedUser(req, res) {
 }
 
 function addEvent(req, res) {
-    UserProfile.update({
-      username: req.body.username
-    }, {
-      $push: {
-        events: req.body.eventID
-      }
-    },
-    function(err, result) {
-      if(err) {
-        res.status(404);
-        res.send(err);
-      } else {
-        //console.log(result);
-      }
-    });
+  UserProfile.findOne({
+    username: req.body.username
+  })
+  .then(data => {
+    if(!data.events.includes(req.body.eventID)) {
+      UserProfile.update({
+        username: req.body.username
+      }, {
+        $push: {
+          events: req.body.eventID
+        }
+      },
+      function(err, result) {
+        if(err) {
+          res.status(404);
+          res.send(err);
+        } else {
+          //console.log(result);
+          res.json({message:'added'});
+        }
+      });
+    }
+    else {
+      res.json({message:'duplicate'});
+    }
+    // console.log(data);
+  })
 }
 
 function deleteEvent(req, res) {
-    UserProfile.update({
-      username: req.body.username
-    }, {
-      $pull: {
-        events: req.body.eventID
+  UserProfile.findOne({
+    username: req.body.username
+  })
+  .then(data => {
+    if(data.events.includes(req.body.eventID)) {
+      UserProfile.update({
+        username: req.body.username
+      }, {
+        $pull: {
+          events: req.body.eventID
+        },
       },
-    },
-    { multi: true },
-    function(err, result) {
-      if(err) {
-        res.status(404);
-        res.send(err);
-      } else {
-        // console.log(result);
-      }
-    });
+      { multi: true },
+      function(err, result) {
+        if(err) {
+          res.status(404);
+          res.send(err);
+        } else {
+          // console.log(result);
+          console.log("deleted");
+          res.json({message:'deleted'});
+        }
+      });
+    }
+    else {
+      console.log("wasn't there");
+      res.json({message:'the event was not there'});
+    }
+  });
 }

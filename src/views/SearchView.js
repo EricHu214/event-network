@@ -18,7 +18,7 @@ class SearchView extends Component {
   render() {
     return (
       <div className="App">
-        { this.props.events.length > 0
+        {this.props.events.length > 0
           ? <div className="eventBoxContainer">
             {this.props.events.map(x => <EventBox onClick={() => this.showEvent(x.id)} key={x.id} {...x}/>)}
           </div>

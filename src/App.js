@@ -13,9 +13,7 @@ let mockData4 = {
   username:"ohohoh",
   description:"Hello there. Welcome to my profile!",
   country:"country: Canada",
-  goingEvents: {
-    1:"Monster Jam!"
-  }
+  goingEvents: []
 }
 
 var q = {};
@@ -78,8 +76,6 @@ class App extends Component {
   }
 
   interested = (new_id, new_name) => {
-
-
     var data = {eventID: new_id, username: mockData4.username};
 
     fetch("http://localhost:5000/interested", {
@@ -92,18 +88,16 @@ class App extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
+      mockData4.goingEvents.push(new_id);
       this.setState({});
-      console.log("added");
+      console.log(response.message);
     })
-
   }
 
   notInterested = (id) => {
-
-
     var data = {eventID: id, username: mockData4.username};
 
-    fetch("http://localhost:5000/uninterested", {
+    fetch("http://localhost:5000/notInterested", {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -113,11 +107,17 @@ class App extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
+      // Remove the event from the list to refresh the view
+      var events = mockData4.goingEvents
+      for (var i = 0; i < events.length; i++) {
+        if (events[i] == id) {
+          mockData4.goingEvents.splice(i, 1);
+        }
+      }
+
       this.setState({});
-      console.log("deleted");
+      console.log(response.message);
     })
-
-
   }
 
   link_to_event = (id) => {

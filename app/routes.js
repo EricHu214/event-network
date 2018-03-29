@@ -51,9 +51,9 @@ module.exports = function(app, passport) {
       })(req, res);
     });
 
-    app.post('/interested', mainController.addEvent);
 
-    app.post('/uninterested', mainController.deleteEvent);
+    app.post('/interested', mainController.addEvent);
+    app.post('/notInterested', mainController.deleteEvent);
 }
 
 function loggedIn(req, res, next) {

@@ -30,8 +30,8 @@ class LoginView extends Component {
       headers: {
       'content-type': 'application/json'
       },
-      body:JSON.stringify(data)
-
+      body:JSON.stringify(data),
+      credentials: 'include'
     })
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
@@ -76,8 +76,8 @@ class LoginView extends Component {
       headers: {
       'content-type': 'application/json'
       },
-      body:JSON.stringify(data)
-
+      body:JSON.stringify(data),
+      credentials: 'include'
     })
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
