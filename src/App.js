@@ -38,7 +38,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = this.init();
-    queries.loadInitial().then((response) => {this.setState({searchViewData: response._embedded})})
+    fetch("http://localhost:5000/checklogin", {
+      method: 'GET',
+      credentials: 'include'
+    })
+    .then(res => {res.json()})
+    .catch(error => console.error('Error:', error))
+    .then(response1 => {
+      console.log(response1)
+      queries.loadInitial().then((response) => {this.setState({searchViewData: response._embedded})})
+    })
+    .catch(error => console.error('Error:', error));
   }
 
   init = () => {
@@ -54,9 +64,11 @@ class App extends Component {
 
   logOut = () => {
     fetch("http://localhost:5000/logout", {
-      method: 'GET'
+      method: 'GET',
+      credentials: 'include'
     })
     .then(res => res.json())
+    .catch(error => console.error('Error:', error))
     .then(response => {
       console.log(response.message)
       this.setState({loggedIn: false})

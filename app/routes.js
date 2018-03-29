@@ -3,19 +3,30 @@ var UserProfile = require('../models/users');
 
 module.exports = function(app, passport) {
     // home page
-    app.get('/home', function(req, res) {
+    app.get('/checklogin', function(req, res) {
+      console.log(req.cookies);
+      console.log(req.session.id)
 
-        res.send('hello there ohoho');
+      console.log(req.sessionID);
+
+      if (req.user) {
+        console.log(req.user);
+        res.json({user:req.user});
+      }
+      else {
+        console.log('not authenticated');
+        res.json({'message': 'not authenticated'});
+      }
     });
 
     // seed sample user
     app.get('/seedUser', mainController.seedUser);
 
     app.get('/logout', function(req, res) {
-        req.logout();
-        req.session.save(function() {
-            res.json({message:"logged out"});
-        });
+      req.logout();
+      req.session.save(function() {
+          res.json({message:"logged out"});
+      });
     });
 
     // process the login form
@@ -46,7 +57,6 @@ function loggedIn(req, res, next) {
         next();
         return true;
     } else {
-        res.redirect('/login');
         return false;
     }
 }
