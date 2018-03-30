@@ -7,13 +7,18 @@ module.exports = function(app, passport) {
     app.get('/checklogin', function(req, res) {
       if (req.session.user) {
         console.log("loading from session");
-        res.json({message:"loggedin", user:req.session.user});
+        UserProfile.findOne({username:req.session.user.username})
+        .then(data =>{
+          res.json({message:"loggedin", user:data});
+        })
       }
       else {
         console.log('no session');
         res.json({user:false, 'message': 'not authenticated'});
       }
     });
+
+    app.get('/goingEvents/:eventID', mainController.usersGoingEvent);
 
     // seed sample user
     app.get('/seedUser', mainController.seedUser);

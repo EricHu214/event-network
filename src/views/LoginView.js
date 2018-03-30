@@ -21,8 +21,9 @@ class LoginView extends Component {
     let username = this.refs.rUsername.state.value
     let password = this.refs.rPassword.state.value
     let email = this.refs.rEmail.state.value
+    let description = "hello this is a description"
 
-    var data = {username, password, email}
+    var data = {username, password, email, description}
     console.log(data);
 
     fetch("/signup", {

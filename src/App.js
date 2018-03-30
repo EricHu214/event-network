@@ -62,6 +62,7 @@ class App extends Component {
   logIn = (userInfo) => {
     userProfile.username = userInfo.username
     userProfile.goingEvents = userInfo.events
+    userProfile.description = userInfo.description
     this.setState({loggedIn: true})
   }
 

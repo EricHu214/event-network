@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   credentials: true,
   origin:"http://localhost:3000"
-  // allowedHeaders:'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
 }));
 
 
