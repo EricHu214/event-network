@@ -24,9 +24,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   credentials: true,
-  origin:"http://localhost:3000",
-  allowedHeaders:'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+  origin:"http://localhost:3000"
+  // allowedHeaders:'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
 }));
+
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.set('views', __dirname + '/views');

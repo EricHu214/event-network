@@ -8,9 +8,6 @@ class DetailsView extends Component {
 
   render() {
     let div = null;
-    console.log(this.props.id);
-    console.log('\n');
-    console.log(this.props.userData.goingEvents);
     if(this.props.loggedIn) {
       if (this.props.userData.goingEvents.includes(this.props.id)) {
         div =

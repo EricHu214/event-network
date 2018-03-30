@@ -8,10 +8,6 @@ import '../App.css';
 class UserProfileView extends Component {
   // Define the behaviour that happens when we click on an event in the user's
   // list of events they're going to
-  showEvent(id) {
-    // let obj = this.props.searchViewData.events.find(o => o.id === parseInt(id, 10));
-    // this.props.switchState(2, obj);
-  }
 
   render() {
     let interestedList = Object.keys(this.props.goingEvents)

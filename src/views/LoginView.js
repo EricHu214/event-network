@@ -25,7 +25,7 @@ class LoginView extends Component {
     var data = {username, password, email}
     console.log(data);
 
-    fetch("http://localhost:5000/signup", {
+    fetch("/signup", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'
@@ -40,28 +40,13 @@ class LoginView extends Component {
       if (response.success) {
         console.log(response.message);
         this.setState({error: ""});
-        this.props.logIn(username, password, email, response.success);
+        this.props.logIn(response.success);
         this.props.switchState(1);
       }
       else {
         console.log(response.message);
         this.setState({error: response.message});
       }});
-
-
-
-
-
-    // Promise.resolve(result)
-    // .then(returnValue => {
-    //   console.log("hi");
-    //   this.setState({error: ""});
-    //   this.props.logIn(username, password, email);
-    //   this.props.switchState(1);
-    // })
-    // .catch(err => {
-    //   this.setState({error: err});
-    // })
   }
 
   submitLogin = () => {
@@ -71,7 +56,7 @@ class LoginView extends Component {
     var data = {username, password}
     console.log(data);
 
-    fetch("http://localhost:5000/login", {
+    fetch("/login", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'
@@ -86,15 +71,13 @@ class LoginView extends Component {
       if (response.success) {
         console.log(response.message);
         this.setState({error: ""});
-        this.props.logIn(username, password, "", response.success);
+        this.props.logIn(response.success);
         this.props.switchState(1);
       }
       else {
         console.log(response.message);
         this.setState({error: response.message});
       }});
-    // this.props.logIn(user, pass);
-    // this.props.switchState(1);
   }
 
   render() {

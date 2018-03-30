@@ -9,8 +9,8 @@ import SearchBar from './components/SearchBar.js'
 import AdvancedSearchView from './views/AdvancedSearchView.js'
 // key = 	rgH0sHA67HAtSurrdPQON985G4BAMWTY
 
-let mockData4 = {
-  username:"ohohoh",
+let userProfile = {
+  username:"placeholder",
   description:"Hello there. Welcome to my profile!",
   country:"country: Canada",
   goingEvents: []
@@ -38,15 +38,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = this.init();
-    fetch("http://localhost:5000/checklogin", {
+
+    fetch("/checklogin", {
       method: 'GET',
       credentials: 'include'
     })
-    .then(res => {res.json()})
+    .then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response1 => {
-      console.log(response1)
-      queries.loadInitial().then((response) => {q=response._embedded;this.setState({searchViewData: response._embedded})})
+    .then(response => {
+      var user = response.user;
+      if (user) {
+        this.logIn(user);
+      }
+      queries.loadInitial().then((response1) => {q=response1._embedded;this.setState({searchViewData: response1._embedded})})
     })
     .catch(error => console.error('Error:', error));
   }
@@ -55,15 +59,14 @@ class App extends Component {
     return {searchViewData: {events: []}, view: 1};
   }
 
-  logIn = (user, pass, email, userInfo) => {
-    console.log(user)
-    mockData4.username = user
-    mockData4.goingEvents = userInfo.events
+  logIn = (userInfo) => {
+    userProfile.username = userInfo.username
+    userProfile.goingEvents = userInfo.events
     this.setState({loggedIn: true})
   }
 
   logOut = () => {
-    fetch("http://localhost:5000/logout", {
+    fetch("/logout", {
       method: 'GET',
       credentials: 'include'
     })
@@ -76,9 +79,9 @@ class App extends Component {
   }
 
   interested = (new_id, new_name) => {
-    var data = {eventID: new_id, username: mockData4.username};
+    var data = {eventID: new_id, username: userProfile.username};
 
-    fetch("http://localhost:5000/interested", {
+    fetch("/interested", {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -88,16 +91,16 @@ class App extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
-      mockData4.goingEvents.push(new_id);
+      userProfile.goingEvents.push(new_id);
       this.setState({});
       console.log(response.message);
     })
   }
 
   notInterested = (id) => {
-    var data = {eventID: id, username: mockData4.username};
+    var data = {eventID: id, username: userProfile.username};
 
-    fetch("http://localhost:5000/notInterested", {
+    fetch("/notInterested", {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -108,10 +111,10 @@ class App extends Component {
     .catch(error => console.error('Error:', error))
     .then(response => {
       // Remove the event from the list to refresh the view
-      var events = mockData4.goingEvents
+      var events = userProfile.goingEvents
       for (var i = 0; i < events.length; i++) {
-        if (events[i] == id) {
-          mockData4.goingEvents.splice(i, 1);
+        if (events[i] === id) {
+          userProfile.goingEvents.splice(i, 1);
         }
       }
 
@@ -139,10 +142,10 @@ class App extends Component {
         this.setState({searchViewData: cleanData(response)})})
     }
     else if (id === 2) {
-      this.setState({view: id, detailsViewData: queryData, userProfileData: mockData4});
+      this.setState({view: id, detailsViewData: queryData, userProfileData: userProfile});
     }
     else if (id === 3) this.setState({view: id, loginViewData: queryData});
-    else if (id === 4) this.setState({view: id, userProfileData: mockData4});
+    else if (id === 4) this.setState({view: id, userProfileData: userProfile});
     else if (id === 5) this.setState({view: id});
   }
 

@@ -3,19 +3,15 @@ var UserProfile = require('../models/users');
 
 module.exports = function(app, passport) {
     // home page
+
     app.get('/checklogin', function(req, res) {
-      console.log(req.cookies);
-      console.log(req.session.id)
-
-      console.log(req.sessionID);
-
-      if (req.user) {
-        console.log(req.user);
-        res.json({user:req.user});
+      if (req.session.user) {
+        console.log("loading from session");
+        res.json({message:"loggedin", user:req.session.user});
       }
       else {
-        console.log('not authenticated');
-        res.json({'message': 'not authenticated'});
+        console.log('no session');
+        res.json({user:false, 'message': 'not authenticated'});
       }
     });
 
@@ -24,7 +20,7 @@ module.exports = function(app, passport) {
 
     app.get('/logout', function(req, res) {
       req.logout();
-      req.session.save(function() {
+      req.session.destroy(function() {
           res.json({message:"logged out"});
       });
     });
@@ -36,6 +32,8 @@ module.exports = function(app, passport) {
         if (err) {
           console.error(err);
         }
+        req.session.user = user;
+        req.session.save();
         res.json({success:user, message:info});
       })(req, res);
     });
@@ -47,6 +45,8 @@ module.exports = function(app, passport) {
         if (err) {
           console.error(err);
         }
+        req.session.user = user;
+        req.session.save();
         res.json({success:user, message:info});
       })(req, res);
     });
