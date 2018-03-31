@@ -25,11 +25,30 @@ function usersGoingEvent(req, res) {
   .then(data => {
     if (data) {
       console.log("found users going to event");
-      res.json({goingUsers:data});
+      UserProfile.find({username:{$in:data.interestedUsers}})
+      .then(data2 => {
+        if (data2) {
+          var returnData = [];
+
+          for (i in data2) {
+            let username = data2[i].username;
+            let description = data2[i].description;
+            let goingEvents = data2[i].events;
+
+            returnData.push({username, description, goingEvents});
+          }
+          // console.log(returnData);
+          res.json({goingUsers:data});
+          res.json({goingUsers:{interestedUsers:returnData}});
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }
     else {
       console.log("no users going to this event");
-      res.json({goingUsers:[]});
+      res.json({goingUsers:{interestedUsers:[]}});
     }
   });
 }
