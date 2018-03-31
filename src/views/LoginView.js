@@ -23,34 +23,33 @@ class LoginView extends Component {
     let password = this.refs.rPassword.state.value
     let password2 = this.refs.rConfirmPassword.state.value
     let email = this.refs.rEmail.state.value
+    let description = this.refs.rDescription.state.value
 
-    var data = {username, password, email}
-    if (password === password2) {
-      fetch("/signup", {
-        method: 'POST',
-        headers: {
-        'content-type': 'application/json'
-        },
-        body:JSON.stringify(data),
-        credentials: 'include'
-      })
-      .then(res => res.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => {
-        console.log(response.success);
-        if (response.success) {
-          console.log(response.message);
-          this.setState({error: ""});
-          this.props.logIn(response.success);
-          this.props.switchState(1);
-        }
-        else {
-          console.log(response.message);
-          this.setState({error: response.message.message});
-        }});
-    } else {
-      this.setState({error: "Passwords don't match"})
-    }
+    var data = {username, password, email, description}
+    console.log(data);
+
+    fetch("/signup", {
+      method: 'POST',
+      headers: {
+      'content-type': 'application/json'
+      },
+      body:JSON.stringify(data),
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log(response.success);
+      if (response.success) {
+        console.log(response.message);
+        this.setState({error: ""});
+        this.props.logIn(response.success);
+        this.props.switchState(1);
+      }
+      else {
+        console.log(response.message);
+        this.setState({error: response.message});
+      }});
   }
 
   submitLogin = () => {

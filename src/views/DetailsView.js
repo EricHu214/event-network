@@ -5,7 +5,23 @@ import '../App.css';
 * Construct the details page for the user app
 */
 class DetailsView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      interestedUsers: []
+    };
+    this.getAllEvents()
+  }
 
+  getAllEvents() {
+    console.log("/goingEvents/"+this.props.id)
+    fetch('/goingEvents/'+this.props.id, {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(response => {this.setState({interestedUsers: response.goingUsers.interestedUsers})})
+    .catch(error => console.error('Error:', error))
+  }
   render() {
     let div = null;
     if(this.props.loggedIn) {
@@ -30,8 +46,9 @@ class DetailsView extends Component {
     }
     return (
       <div className="detailsBoxContainer">
-        <div className="paper detailsBox" style={{backgroundImage: 'url('+this.props.images[0].url+')'}}>
-          <div className="detailsTextBox">
+        <div className="detailsBox">
+          <img className="displayImage" src={this.props.images[0].url} />
+          <div className="paper detailsTextBox">
             <div className="header1">{this.props.name}</div>
             <div className="header2">{this.props.dates.start.localTime}, {this.props.dates.start.localDate}</div>
             <div className="header2">ABOUT</div>
@@ -40,9 +57,13 @@ class DetailsView extends Component {
             <div>${this.props.priceRanges[0].min} - ${this.props.priceRanges[0].max}</div>
             <div className="header2">INFO</div>
             <div>{this.props.info}</div>
-            <div></div>
-            <div className="date1"><a href={this.props.url}>Buy tickets now</a></div>
+            <div className="header2"><a href={this.props.url}>BUY TICKETS</a></div>
             {div}
+          </div>
+          <div className="paper detailsTextBox2">
+            <div className="header1">INTERESTED USERS</div>
+            {this.state.interestedUsers &&
+              this.state.interestedUsers.map(o => <div>{o}</div>)}
           </div>
         </div>
       </div>

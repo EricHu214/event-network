@@ -55,10 +55,6 @@ class App extends Component {
     .catch(error => console.error('Error:', error));
   }
 
-  componentWillMount() {
-    console.log(this.state)
-  }
-
   init = () => {
     return {searchViewData: {events: []}, view: 1, userProfileData: userProfile};
   }
@@ -66,6 +62,7 @@ class App extends Component {
   logIn = (userInfo) => {
     userProfile.username = userInfo.username
     userProfile.goingEvents = userInfo.events
+    userProfile.description = userInfo.description
     this.setState({loggedIn: true})
   }
 
