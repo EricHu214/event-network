@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MaterialIcon from 'material-icons-react'
 import '../App.css';
 
 /*
@@ -8,9 +9,16 @@ import '../App.css';
 class EventBox extends Component {
   render() {
     return (
-      <div style={{backgroundImage: 'url('+this.props.images[0].url+')'}} className="eventBox paper" onClick={this.props.onClick}>
+      <div style={{backgroundImage: 'url('+this.props.images[0].url+')'}}
+        className={this.props.highlighted ? "eventBox paper2" : "eventBox paper"} onClick={this.props.onClick}>
         <div className="eventTextBox">
           <div className="header1">{this.props.name}</div>
+          {this.props.highlighted && <div style={{overflow: "auto", margin: 10}}>
+            <MaterialIcon icon="done" />
+            <div className="errorText2">
+              Interested
+            </div>
+          </div>}
           <div className="info1">
           {this.props._embedded.venues[0].address ? this.props._embedded.venues[0].address.line1 : ''}, {this.props._embedded.venues[0].city ? this.props._embedded.venues[0].city.name : ''}
           </div>

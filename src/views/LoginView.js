@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormField from '../components/FormField.js'
+import FormFieldSelect from '../components/FormFieldSelect.js'
 import Error from '../components/Error.js'
 import '../App.css';
 
@@ -20,33 +21,36 @@ class LoginView extends Component {
   submitRegister = () => {
     let username = this.refs.rUsername.state.value
     let password = this.refs.rPassword.state.value
+    let password2 = this.refs.rConfirmPassword.state.value
     let email = this.refs.rEmail.state.value
 
     var data = {username, password, email}
-    console.log(data);
-
-    fetch("/signup", {
-      method: 'POST',
-      headers: {
-      'content-type': 'application/json'
-      },
-      body:JSON.stringify(data),
-      credentials: 'include'
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      console.log(response.success);
-      if (response.success) {
-        console.log(response.message);
-        this.setState({error: ""});
-        this.props.logIn(response.success);
-        this.props.switchState(1);
-      }
-      else {
-        console.log(response.message);
-        this.setState({error: response.message});
-      }});
+    if (password === password2) {
+      fetch("/signup", {
+        method: 'POST',
+        headers: {
+        'content-type': 'application/json'
+        },
+        body:JSON.stringify(data),
+        credentials: 'include'
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        console.log(response.success);
+        if (response.success) {
+          console.log(response.message);
+          this.setState({error: ""});
+          this.props.logIn(response.success);
+          this.props.switchState(1);
+        }
+        else {
+          console.log(response.message);
+          this.setState({error: response.message.message});
+        }});
+    } else {
+      this.setState({error: "Passwords don't match"})
+    }
   }
 
   submitLogin = () => {
@@ -69,9 +73,9 @@ class LoginView extends Component {
     .then(response => {
       console.log(response.success);
       if (response.success) {
-        console.log(response.message);
         this.setState({error: ""});
         this.props.logIn(response.success);
+        console.log(response.success)
         this.props.switchState(1);
       }
       else {
@@ -89,7 +93,9 @@ class LoginView extends Component {
             <div className="singleColumn">
             <FormField ref="rEmail" id="email" label="Email :"/>
             <FormField ref="rUsername" id="username1" label="Username :"/>
-            <FormField ref="rPassword" label="Password :"/>
+            <FormFieldSelect ref="rDescription" label="About me :"/>
+            <FormField ref="rPassword" password label="Password :"/>
+            <FormField ref="rConfirmPassword" password label="Confirm Password :"/>
             <button type="button" className="generalButton" onClick={this.submitRegister}>Submit</button>
             </div>
             {this.state.error.length > 1 &&
@@ -101,7 +107,7 @@ class LoginView extends Component {
             <div className="header1">Login</div>
             <div className="singleColumn">
             <FormField ref="lUsername" id="username2" label="Username :"/>
-            <FormField ref="lPassword" id="password2" label="Password :"/>
+            <FormField ref="lPassword" password id="password2" label="Password :"/>
             <button type="button" className="generalButton" onClick={this.submitLogin}>Submit</button>
             </div>
             {this.state.error.length > 1 &&

@@ -29,10 +29,6 @@ body {
   text-align: left;
 }
 
-.checkboxFormField {
-
-}
-
 .date1 {
   text-transform: uppercase;
   margin-top: 3px;
@@ -77,11 +73,19 @@ body {
   font-size: 16px;
 }
 
+.errorText2 {
+  vertical-align: middle;
+  display: inline-flex;
+  padding-bottom: 13px;
+  margin-left: 8px;
+  font-size: 15px;
+}
+
 .eventBox {
   cursor: pointer;
   text-align: left;
   width: 300px;
-  min-height: 400px;
+  min-height: 480px;
   float: left;
   position: relative;
   margin: 10px;
@@ -108,6 +112,15 @@ body {
   position: absolute;
 }
 
+.eventTextBox2 {
+  background-color: #ffced5;
+  height: 50%;
+  width: 100%;
+  bottom: 0px;
+  overflow: auto;
+  position: absolute;
+}
+
 .eventBoxContainer {
   display: inline-block;
 }
@@ -120,13 +133,30 @@ body {
   width: 100%;
 }
 
+.formFieldSelectBox {
+  border: 1px double black;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  display: inline-block;
+  width: 100%;
+}
+
 .formFieldInput {
   border: none;
+  width: 60%;
+  margin-left: 20px;
+}
+
+.formFieldSelectInput {
+  resize: none;
+  border: none;
+  width: 80%;
+  height: 100px;
   margin-left: 20px;
 }
 
 .formFieldLabel {
-  min-width: 600px;
+  min-width: 100px;
 }
 
 .generalButton {
@@ -200,9 +230,10 @@ body {
 }
 
 .loginBox {
+  overflow: auto;
   text-align: center;
   width: 60%;
-  height: 300px;
+  padding-bottom: 25px;
   margin: 0 auto;
   position: relative;
 }
@@ -212,6 +243,19 @@ body {
   -webkit-box-shadow: 0px 3px 8px 0px rgba(210,210,210,1);
   -moz-box-shadow: 0px 3px 8px 0px rgba(210,210,210,1);
   box-shadow: 0px 3px 8px 0px rgba(210,210,210,1);
+}
+
+.paperstyle2 {
+  background-color: #c5ffb7;
+  -webkit-box-shadow: 0px 3px 8px 0px rgba(210,210,210,1);
+  -moz-box-shadow: 0px 3px 8px 0px rgba(210,210,210,1);
+  box-shadow: 0px 3px 8px 0px rgba(210,210,210,1);
+}
+
+.passwordInput {
+  -webkit-text-security: disc;
+  -moz-text-security: disc;
+  text-security: disc;
 }
 
 .searchBar {
@@ -227,6 +271,7 @@ body {
 }
 
 .searchBarInput {
+  width: 65%;
   background-color: transparent;
   border: none;
   float: left;
@@ -275,15 +320,16 @@ body {
 }
 
 .singleColumn {
+  width: 80%;
   display: inline-block;
-  min-width: 500px;
   text-align: left;
 }
 
 .userDetailsBox {
   padding: 10px;
   width: 60%;
-  height: 300px;
+  min-height: 300px;
+  overflow: auto;
   margin: 0 auto;
   position: relative;
   text-align: left;

@@ -16,11 +16,14 @@ class SearchView extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="App">
         {this.props.events.length > 0
           ? <div className="eventBoxContainer">
-            {this.props.events.map(x => <EventBox onClick={() => this.showEvent(x.id)} key={x.id} {...x}/>)}
+            {this.props.events.map(x =>
+              <EventBox highlighted = {this.props.loggedIn && this.props.goingEvents.includes(x.id)}
+                onClick={() => this.showEvent(x.id)} key={x.id} {...x}/>)}
           </div>
           : <Error label="Nothing to display here"/>
         }

@@ -55,8 +55,12 @@ class App extends Component {
     .catch(error => console.error('Error:', error));
   }
 
+  componentWillMount() {
+    console.log(this.state)
+  }
+
   init = () => {
-    return {searchViewData: {events: []}, view: 1};
+    return {searchViewData: {events: []}, view: 1, userProfileData: userProfile};
   }
 
   logIn = (userInfo) => {
@@ -80,7 +84,6 @@ class App extends Component {
 
   interested = (new_id, new_name) => {
     var data = {eventID: new_id, username: userProfile.username};
-
     fetch("/interested", {
       method: 'POST',
       headers: {
@@ -93,13 +96,11 @@ class App extends Component {
     .then(response => {
       userProfile.goingEvents.push(new_id);
       this.setState({});
-      console.log(response.message);
     })
   }
 
   notInterested = (id) => {
     var data = {eventID: id, username: userProfile.username};
-
     fetch("/notInterested", {
       method: 'POST',
       headers: {
@@ -117,16 +118,11 @@ class App extends Component {
           userProfile.goingEvents.splice(i, 1);
         }
       }
-
       this.setState({});
-      console.log(response.message);
     })
   }
 
   link_to_event = (id) => {
-    console.log(id);
-    console.log(q.events);
-
     let obj = q.events.find(o => o.id === id);
     this.switchState(2, obj);
   }
@@ -139,7 +135,7 @@ class App extends Component {
     if (id === 1) {
       this.setState({view: id});
       if (queryData) queries.searchEventKeyword(queryData).then((response) => {
-        this.setState({searchViewData: cleanData(response)})})
+        this.setState({searchViewData: cleanData(response), userProfileData: userProfile})})
     }
     else if (id === 2) {
       this.setState({view: id, detailsViewData: queryData, userProfileData: userProfile});
@@ -152,7 +148,7 @@ class App extends Component {
   render() {
     let view = null;
     if (this.state.view === 1) {
-      view = <SearchView switchState={this.switchState} {...this.state.searchViewData}/>;
+      view = <SearchView switchState={this.switchState} loggedIn={this.state.loggedIn} {...this.state.userProfileData} {...this.state.searchViewData}/>;
     }
     else if (this.state.view === 2) {
       view = <DetailsView switchState={this.switchState} {...this.state.searchViewData} {...this.state.detailsViewData} userData={this.state.userProfileData} loggedIn={this.state.loggedIn} interested = {this.interested} notInterested = {this.notInterested}/>;
