@@ -44,7 +44,6 @@ function usersGoingEvent(req, res) {
       });
     }
     else {
-      console.log("no users going to this event");
       res.json({goingUsers:{interestedUsers:[]}});
     }
   });
@@ -98,10 +97,6 @@ function addEvent(req, res) {
               res.json({message:'added'});
             }
           })
-
-
-          // console.log("added");
-          // res.json({message:'added'});
         }
       });
     }

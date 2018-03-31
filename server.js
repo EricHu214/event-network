@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   credentials: true,
-  origin:"https://secure-reaches-69614.herokuapp.com/"
+  origin:"http://localhost:3000"
 }));
 
 
