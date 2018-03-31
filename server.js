@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   credentials: true,
-  origin:"http://localhost:3000"
+  origin:"https://secure-reaches-69614.herokuapp.com/"
 }));
 
 
@@ -47,4 +47,3 @@ require('./app/routes.js')(app, passport);
 
 // server
 app.listen(port);
-console.log('Running at ' + port);

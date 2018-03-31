@@ -15,7 +15,6 @@ class DetailsView extends Component {
   }
 
   getAllEvents() {
-    console.log("/goingEvents/"+this.props.id)
     fetch('/goingEvents/'+this.props.id, {
       method: 'GET'
     })
@@ -23,6 +22,7 @@ class DetailsView extends Component {
     .then(response => {this.setState({interestedUsers: response.goingUsers.interestedUsers}); console.log(response)})
     .catch(error => console.error('Error:', error))
   }
+
   render() {
     let div = null;
     if(this.props.loggedIn) {
@@ -45,7 +45,6 @@ class DetailsView extends Component {
         </div>;
       }
     }
-    console.log(this.state.interestedUsers)
     return (
       <div className="detailsBoxContainer">
         <div className="detailsBox">
