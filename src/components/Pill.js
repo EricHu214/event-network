@@ -9,11 +9,10 @@ import '../App.css';
 class Pill extends Component {
   render() {
     return (
-      <div className="pillBox">
-        <div className="pillText" onClick={this.props.handleClick}>
+      <div className="pillBox" onClick={this.props.handleClick}>
+        <div className="pillText">
           {this.props.label}
         </div>
-        <MaterialIcon size='tiny' icon="clear" />
       </div>
     );
   }

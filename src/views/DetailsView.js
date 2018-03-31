@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Pill from '../components/Pill';
 import '../App.css';
 
 /*
@@ -58,13 +59,13 @@ class DetailsView extends Component {
             <div>${this.props.priceRanges[0].min} - ${this.props.priceRanges[0].max}</div>
             <div className="header2">INFO</div>
             <div>{this.props.info}</div>
-            <div className="header2"><a href={this.props.url}>BUY TICKETS</a></div>
+            <div className="generalButton"><a href={this.props.url}>BUY TICKETS</a></div>
             {div}
           </div>
           <div className="paper detailsTextBox2">
             <div className="header1">INTERESTED USERS</div>
             {this.state.interestedUsers &&
-              this.state.interestedUsers.map(o => <div>{o.username}</div>)}
+              this.state.interestedUsers.map(o => <Pill label={o.username} handleClick={() => this.props.visitUserProfile(o)} />)}
           </div>
         </div>
       </div>

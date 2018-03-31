@@ -4,6 +4,10 @@ textarea:focus,
 button:focus {
     outline: none;
 }
+a {
+  color: black;
+  text-decoration: none;
+} 
 
 select {
   border: none;

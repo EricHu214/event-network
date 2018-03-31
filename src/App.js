@@ -128,6 +128,11 @@ class App extends Component {
     return q.events.find(o => o.id === id).name
   }
 
+  visitUserProfile = (userProfile) => {
+    console.log("SLDKFJLDSKJ")
+    this.setState({view: 4, userProfileData: userProfile});
+  }
+
   switchState = (id, queryData) => {
     if (id === 1) {
       this.setState({view: id});
@@ -156,7 +161,8 @@ class App extends Component {
       view = <DetailsView switchState={this.switchState}
       {...this.state.searchViewData}{...this.state.detailsViewData}
       userData={this.state.userProfileData} loggedIn={this.state.loggedIn}
-      interested = {this.interested} notInterested = {this.notInterested}/>;
+      interested = {this.interested} notInterested = {this.notInterested}
+      visitUserProfile={this.visitUserProfile}/>;
     }
     else if (this.state.view === 3) {
       view = <LoginView logIn={this.logIn} switchState={this.switchState}

@@ -36,10 +36,7 @@ function usersGoingEvent(req, res) {
 
             returnData.push({username, description, goingEvents});
           }
-          // console.log(returnData);
-          res.json({goingUsers:data});
-          res.json({goingUsers:{interestedUsers:returnData}});
-          console.log({goingUsers:{interestedUsers:returnData}});
+        res.json({goingUsers:{interestedUsers:returnData}});
         }
       })
       .catch(err => {
