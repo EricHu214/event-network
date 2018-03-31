@@ -19,7 +19,7 @@ class DetailsView extends Component {
       method: 'GET'
     })
     .then(res => res.json())
-    .then(response => {this.setState({interestedUsers: response.goingUsers.interestedUsers})})
+    .then(response => {this.setState({interestedUsers: response.goingUsers.interestedUsers}); console.log(response)})
     .catch(error => console.error('Error:', error))
   }
   render() {
@@ -44,6 +44,7 @@ class DetailsView extends Component {
         </div>;
       }
     }
+    console.log(this.state.interestedUsers)
     return (
       <div className="detailsBoxContainer">
         <div className="detailsBox">
@@ -63,7 +64,7 @@ class DetailsView extends Component {
           <div className="paper detailsTextBox2">
             <div className="header1">INTERESTED USERS</div>
             {this.state.interestedUsers &&
-              this.state.interestedUsers.map(o => <div>{o}</div>)}
+              this.state.interestedUsers.map(o => <div>{o.username}</div>)}
           </div>
         </div>
       </div>

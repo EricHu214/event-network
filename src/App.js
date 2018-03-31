@@ -138,23 +138,35 @@ class App extends Component {
       this.setState({view: id, detailsViewData: queryData, userProfileData: userProfile});
     }
     else if (id === 3) this.setState({view: id, loginViewData: queryData});
-    else if (id === 4) this.setState({view: id, userProfileData: userProfile});
+    else if (id === 4) {
+      console.log(userProfile)
+      this.setState({view: id, userProfileData: userProfile});
+    }
     else if (id === 5) this.setState({view: id});
   }
 
   render() {
     let view = null;
     if (this.state.view === 1) {
-      view = <SearchView switchState={this.switchState} loggedIn={this.state.loggedIn} {...this.state.userProfileData} {...this.state.searchViewData}/>;
+      view = <SearchView switchState={this.switchState}
+        loggedIn={this.state.loggedIn} {...this.state.userProfileData}
+        {...this.state.searchViewData}/>;
     }
     else if (this.state.view === 2) {
-      view = <DetailsView switchState={this.switchState} {...this.state.searchViewData} {...this.state.detailsViewData} userData={this.state.userProfileData} loggedIn={this.state.loggedIn} interested = {this.interested} notInterested = {this.notInterested}/>;
+      view = <DetailsView switchState={this.switchState}
+      {...this.state.searchViewData}{...this.state.detailsViewData}
+      userData={this.state.userProfileData} loggedIn={this.state.loggedIn}
+      interested = {this.interested} notInterested = {this.notInterested}/>;
     }
     else if (this.state.view === 3) {
-      view = <LoginView logIn={this.logIn} switchState={this.switchState} {...this.state.loginViewData}/>;
+      view = <LoginView logIn={this.logIn} switchState={this.switchState}
+      {...this.state.loginViewData}/>;
     }
     else if (this.state.view === 4) {
-      view = <UserProfileView find_name = {this.find_name} link_to_event = {this.link_to_event} switchState={this.switchState} {...this.state.userProfileData} searchViewData={this.state.searchViewData}/>;
+      view = <UserProfileView find_name = {this.find_name}
+      link_to_event = {this.link_to_event} switchState={this.switchState}
+      {...this.state.userProfileData}
+      searchViewData={this.state.searchViewData}/>;
     }
     else if (this.state.view === 5) {
       view = <AdvancedSearchView switchState={this.switchState} />

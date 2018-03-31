@@ -24,7 +24,6 @@ function usersGoingEvent(req, res) {
   Events.findOne({id:req.params.eventID})
   .then(data => {
     if (data) {
-      console.log("found users going to event");
       UserProfile.find({username:{$in:data.interestedUsers}})
       .then(data2 => {
         if (data2) {
@@ -40,6 +39,7 @@ function usersGoingEvent(req, res) {
           // console.log(returnData);
           res.json({goingUsers:data});
           res.json({goingUsers:{interestedUsers:returnData}});
+          console.log({goingUsers:{interestedUsers:returnData}});
         }
       })
       .catch(err => {

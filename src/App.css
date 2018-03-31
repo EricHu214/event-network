@@ -73,7 +73,7 @@ body {
 .detailsTextBox2 {
   min-width: 50px;
   width: 25%;
-  min-height: 480px;
+  min-height: 50px;
   float: left;
   position: relative;
   margin: 10px;
@@ -288,6 +288,32 @@ body {
   -webkit-text-security: disc;
   -moz-text-security: disc;
   text-security: disc;
+}
+
+.pillBox {
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-top: 15px;
+  background-color: #e2e2e2;
+  display: inline-block;
+  cursor: pointer;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+  padding-top: 8px;
+  padding-right: 8px;
+  border: none;
+}
+
+.pillText {
+  vertical-align: middle;
+  display: inline-flex;
+  font-size: 13px;
+  margin-bottom: 10px;
+  margin-left: 8px;
 }
 
 .searchBar {

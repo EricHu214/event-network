@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Pill from '../components/Pill.js'
 import '../App.css';
 
 /*
@@ -17,13 +18,13 @@ class UserProfileView extends Component {
         <div className="date1">About me</div>
         <div className="userDetailsTextBox">
         <div>{this.props.description}</div>
-        <div>{this.props.country}</div>
         </div>
         <div className="date1">Interested Events</div>
         <div>
-          {interestedList.map(x => <button className="generalButton" onClick={() =>
+          {interestedList.map(x => <Pill handleClick={() =>
             this.props.link_to_event(this.props.goingEvents[x])}
-            key={this.props.goingEvents[x]}>{this.props.find_name(this.props.goingEvents[x])}</button>)}
+            key={this.props.goingEvents[x]}
+            label={this.props.find_name(this.props.goingEvents[x])} />)}
         </div>
       </div>
     );

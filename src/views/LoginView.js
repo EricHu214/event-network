@@ -26,7 +26,6 @@ class LoginView extends Component {
     let description = this.refs.rDescription.state.value
 
     var data = {username, password, email, description}
-    console.log(data);
 
     fetch("/signup", {
       method: 'POST',
@@ -39,15 +38,12 @@ class LoginView extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
-      console.log(response.success);
       if (response.success) {
-        console.log(response.message);
         this.setState({error: ""});
         this.props.logIn(response.success);
         this.props.switchState(1);
       }
       else {
-        console.log(response.message);
         this.setState({error: response.message});
       }});
   }
@@ -57,7 +53,6 @@ class LoginView extends Component {
     let password = this.refs.lPassword.state.value;
 
     var data = {username, password}
-    console.log(data);
 
     fetch("/login", {
       method: 'POST',
@@ -70,15 +65,12 @@ class LoginView extends Component {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
-      console.log(response.success);
       if (response.success) {
         this.setState({error: ""});
         this.props.logIn(response.success);
-        console.log(response.success)
         this.props.switchState(1);
       }
       else {
-        console.log(response.message);
         this.setState({error: response.message});
       }});
   }
