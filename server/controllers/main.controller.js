@@ -157,9 +157,6 @@ function deleteEvent(req, res) {
               res.json({message:'deleted'});
             }
           })
-
-          // console.log("deleted");
-          // res.json({message:'deleted'});
         }
       });
     }
