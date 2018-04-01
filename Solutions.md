@@ -19,7 +19,7 @@ The end user may use our app as a platform to discover new events to go to, as w
 
 *Delete* - Users can delete events from their interested events lists
 
-*Update* - Users update which events they're going to  
+*Update* - Modify user information by updating their list of events
 
 ### Names
 Hyewon Choi 1002602007
