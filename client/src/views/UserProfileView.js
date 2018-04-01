@@ -40,9 +40,12 @@ class UserProfileView extends Component {
             key={this.props.goingEvents[x]}
             label={this.props.find_name(this.props.goingEvents[x])} />)}
         </div>
-        {this.props.myProfile &&
-          <div className="date1" id="delete-account" onClick={this.deleteUser}>DELETE ACCOUNT</div>
-        }
+        <div>
+          <br/>
+          {this.props.myProfile &&
+            <div className="date1" id="delete-account" onClick={this.deleteUser}>DELETE ACCOUNT</div>
+          }
+        </div>
       </div>
     );
   }
