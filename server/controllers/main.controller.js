@@ -21,14 +21,24 @@ function seedUser(req, res) {
 }
 
 function deleteUser(req, res) {
-  UserProfile.findOneAndRemove({username:req.body.username}, function(err, removed) {
-    if (err) {
-      console.error(err);
+  // UserProfile.remove({username:req.body.username}, function(err) {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  //   else {
+  //     req.session.destroy(function() {
+  //         res.json({message:"user deleted"});
+  //     });
+  //   }
+  // });
+
+  UserProfile.find({username:req.body.username})
+  .then(data => {
+    if (data) {
+      res.json({message:req.body.username});
     }
     else {
-      req.session.destroy(function() {
-          res.json({message:"user deleted", obj:removed});
-      });
+      res.json({message:"no user found"});
     }
   });
 }

@@ -12,15 +12,14 @@ Our web app allows users to create an account by registering their information. 
 ### End Users - Roles and Use
 The end user may use our app as a platform to discover new events to go to, as well as see what events other people are going to. They can save events in a list for future consideration or thought. Although we do not support direct purchase of event tickets on our app, all events feature a purchase link to the official Ticketmaster website should the user choose to buy.
 
-### RESTful API
+### RESTful API and Basic Operations
 *Query* - Users can query for new events
 
-*Add* - Users can add new events to their interested events lists
+*Add* - We can create new users for the users collection, users can add new events to their interested events lists
 
-*Delete* - Users can delete events from their interested events lists
+*Delete* - Users can choose to delete their accounts
 
 *Update* - Modify the users in the collection by updating their list of events
-
 
 
 ### Names

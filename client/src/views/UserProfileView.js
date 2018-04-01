@@ -11,7 +11,8 @@ class UserProfileView extends Component {
     console.log(this.props.username)
     fetch("https://a3server.herokuapp.com/users", {
       method: 'DELETE',
-      body:{username:this.props.username}
+      credentials: 'include',
+      body:JSON.stringify({username:this.props.username.toLowerCase()})
     })
     .then(res => res.json())
     .catch(error => console.error('Error:', error))

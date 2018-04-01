@@ -3,8 +3,8 @@ var UserProfile = require('../models/users');
 
 module.exports = function(app, passport) {
 
-    // Query the accounts to implement session management
-    app.get('/accounts', function(req, res) {
+    // Get user information
+    app.get('/users', function(req, res) {
       if (req.session.user) {
         UserProfile.findOne({username:req.session.user.username})
         .then(data =>{
@@ -16,6 +16,18 @@ module.exports = function(app, passport) {
       }
     });
 
+    // process the signup form
+    app.post('/users', function(req, res) {
+      passport.authenticate('local-signup', function(err, user, info) {
+        if (err) {
+          console.error(err);
+        }
+        req.session.user = user;
+        req.session.save();
+        res.json({success:user, message:info});
+      })(req, res);
+    });
+
     // Get list of users going to an event
     app.get('/goingEvents/:eventID', mainController.usersGoingEvent);
 
@@ -23,7 +35,7 @@ module.exports = function(app, passport) {
     app.get('/seedUser', mainController.seedUser);
 
     // Process the logout form
-    app.get('/logoutData', function(req, res) {
+    app.put('/onlineUsers', function(req, res) {
       req.logout();
       req.session.destroy(function() {
           res.json({message:"logged out"});
@@ -35,21 +47,8 @@ module.exports = function(app, passport) {
     });
 
     // process the login form
-    app.post('/loginForm', function(req, res) {
+    app.post('/onlineUsers', function(req, res) {
       passport.authenticate('local-login', function(err, user, info) {
-        console.log(info);
-        if (err) {
-          console.error(err);
-        }
-        req.session.user = user;
-        req.session.save();
-        res.json({success:user, message:info});
-      })(req, res);
-    });
-
-    // process the signup form
-    app.post('/userAccounts', function(req, res) {
-      passport.authenticate('local-signup', function(err, user, info) {
         if (err) {
           console.error(err);
         }
@@ -66,12 +65,20 @@ module.exports = function(app, passport) {
       });
     })
 
-    // post to the interested list of a user
-    app.post('/interested', mainController.addEvent);
-    app.post('/notInterested', mainController.deleteEvent);
+    app.get('/clear', function(req, res) {
+      UserProfile.remove({})
+      .then(data => {
+        res.send("all users removed");
+      })
+    });
+
 
     // delete the user account
     app.delete('/users', mainController.deleteUser);
+
+    // post to the interested list of a user
+    app.post('/users/interestedEvents', mainController.addEvent);
+    app.delete('/users/interestedEvents', mainController.deleteEvent);
 }
 
 function loggedIn(req, res, next) {
