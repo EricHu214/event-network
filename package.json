@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "test": "react-scripts test --env=jsdom",
-<<<<<<< HEAD
     "start": "node server.js | react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
@@ -35,24 +34,16 @@
     "node": "^9.5.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-=======
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
-  },
-  "dependencies": {
+    "eject": "react-scripts eject",
     "heroku": "^0.2.0",
     "material-icons-react": "^1.0.0",
     "node": "^9.5.0",
->>>>>>> 354812bb9af1878474779086acbbbd0ab5047f4d
     "path": "^0.12.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1"
-<<<<<<< HEAD
-  }
-=======
   },
-  "proxy":"http://localhost:5000"
->>>>>>> 354812bb9af1878474779086acbbbd0ab5047f4d
+  "proxy": "http://localhost:5000"
 }
