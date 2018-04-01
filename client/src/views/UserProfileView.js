@@ -41,7 +41,7 @@ class UserProfileView extends Component {
             label={this.props.find_name(this.props.goingEvents[x])} />)}
         </div>
         {this.props.myProfile &&
-          <div className="header2" onClick={this.deleteUser}>DELETE ACCOUNT</div>
+          <div className="date1" id="delete-account" onClick={this.deleteUser}>DELETE ACCOUNT</div>
         }
       </div>
     );
