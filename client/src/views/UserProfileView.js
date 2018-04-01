@@ -8,22 +8,28 @@ import '../App.css';
 */
 class UserProfileView extends Component {
   deleteUser = () => {
-    console.log(this.props.username)
-    // fetch("https://a3server.herokuapp.com/users/" + this.props.username, {
-    fetch("http://localhost:5000/users/" + this.props.username, {
-      method: 'DELETE',
-      credentials: 'include',
-      data:JSON.stringify({username:this.props.username.toLowerCase()})
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      console.log(response.message);
-      this.props.logOut();
-      this.props.switchState(1);
-    });
-
+    var response = window.confirm("Are you sure you want to delete your account?");
+    if (response) {
+        console.log(this.props.username);
+        // fetch("https://a3server.herokuapp.com/users/" + this.props.username, {
+        fetch("http://localhost:5000/users/" + this.props.username, {
+          method: 'DELETE',
+          credentials: 'include',
+          data: JSON.stringify({username:this.props.username.toLowerCase()})
+        })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+          console.log(response.message);
+          this.props.logOut();
+          this.props.switchState(1);
+          window.alert("Your account has been successfully deleted.");
+        });
+    } else {
+      window.alert("You've decided not to delete your account!")
+    }
   }
+
   render() {
     let interestedList = Object.keys(this.props.goingEvents)
     return (
