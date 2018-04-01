@@ -12,7 +12,7 @@ class UserProfileView extends Component {
       method: 'DELETE',
       body:{username:this.props.username}
     })
-    this.switchState(1);
+    this.props.switchState(1);
   }
   render() {
     let interestedList = Object.keys(this.props.goingEvents)
@@ -31,7 +31,7 @@ class UserProfileView extends Component {
             label={this.props.find_name(this.props.goingEvents[x])} />)}
         </div>
         {this.props.myProfile &&
-          <div className="generalButton" onClick={this.deleteUser}>DELETE ACCOUNT</div>
+          <div className="header2" onClick={this.deleteUser}>DELETE ACCOUNT</div>
         }
       </div>
     );
