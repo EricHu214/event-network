@@ -18,7 +18,6 @@
   "bugs": {
     "url": "https://github.com/csc309-18s/assignment-3-team/issues"
   },
-  "proxy":"https://a3client.herokuapp.com/",
   "dependencies": {
     "heroku": "^0.2.0",
     "material-icons-react": "^1.0.0",

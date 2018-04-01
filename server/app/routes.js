@@ -30,6 +30,10 @@ module.exports = function(app, passport) {
       });
     });
 
+    app.get('/', function(req, res) {
+      res.send("successfu");
+    })
+
     // process the login form
     app.post('/login', function(req, res) {
       passport.authenticate('local-login', function(err, user, info) {

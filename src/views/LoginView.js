@@ -24,9 +24,10 @@ class LoginView extends Component {
     let password2 = this.refs.rConfirmPassword.state.value
     let email = this.refs.rEmail.state.value
     let description = this.refs.rDescription.state.value
+
     var data = {username, password, email, description}
 
-    fetch("https://a3server.herokuapp.com/signup", {
+    fetch("/signup", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'
@@ -53,7 +54,7 @@ class LoginView extends Component {
 
     var data = {username, password}
 
-    fetch("https://a3server.herokuapp.com/login", {
+    fetch("/login", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'

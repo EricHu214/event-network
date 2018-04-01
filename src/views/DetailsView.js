@@ -15,7 +15,7 @@ class DetailsView extends Component {
   }
 
   getAllEvents() {
-    fetch('https://a3server.herokuapp.com/goingEvents/'+this.props.id, {
+    fetch('/goingEvents/'+this.props.id, {
       method: 'GET'
     })
     .then(res => res.json())

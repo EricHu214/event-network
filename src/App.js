@@ -39,7 +39,7 @@ class App extends Component {
     super(props);
     this.state = this.init();
 
-    fetch("https://a3server.herokuapp.com/checklogin", {
+    fetch("/checklogin", {
       method: 'GET',
       credentials: 'include'
     })
@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   logOut = () => {
-    fetch("https://a3server.herokuapp.com/logout", {
+    fetch("/logout", {
       method: 'GET',
       credentials: 'include'
     })
@@ -81,7 +81,7 @@ class App extends Component {
 
   interested = (new_id, new_name) => {
     var data = {eventID: new_id, username: userProfile.username};
-    fetch("https://a3server.herokuapp.com/interested", {
+    fetch("/interested", {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -98,7 +98,7 @@ class App extends Component {
 
   notInterested = (id) => {
     var data = {eventID: id, username: userProfile.username};
-    fetch("https://a3server.herokuapp.com/notInterested", {
+    fetch("/notInterested", {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
