@@ -32,7 +32,7 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
       res.send("successful");
-    })
+    });
 
     // process the login form
     app.post('/loginForm', function(req, res) {
@@ -59,9 +59,19 @@ module.exports = function(app, passport) {
       })(req, res);
     });
 
+    app.get('/userlist', function(req, res) {
+      UserProfile.find({})
+      .then(data => {
+        res.json(data);
+      });
+    })
+
     // post to the interested list of a user
     app.post('/interested', mainController.addEvent);
     app.post('/notInterested', mainController.deleteEvent);
+
+    // delete the user account
+    app.delete('/users', mainController.deleteUser);
 }
 
 function loggedIn(req, res, next) {

@@ -8,12 +8,20 @@ import '../App.css';
 */
 class UserProfileView extends Component {
   deleteUser = () => {
+    console.log(this.props.username)
     fetch("https://a3server.herokuapp.com/users", {
       method: 'DELETE',
       body:{username:this.props.username}
     })
-    this.props.logOut();
-    this.props.switchState(1);
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log(response.message);
+      console.log(response.obj);
+      this.props.logOut();
+      this.props.switchState(1);
+    });
+
   }
   render() {
     let interestedList = Object.keys(this.props.goingEvents)
