@@ -44,7 +44,7 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
       res.send("successful");
-    })
+    });
 
     // process the login form
     app.post('/onlineUsers', function(req, res) {
@@ -57,6 +57,24 @@ module.exports = function(app, passport) {
         res.json({success:user, message:info});
       })(req, res);
     });
+
+    app.get('/userlist', function(req, res) {
+      UserProfile.find({})
+      .then(data => {
+        res.json(data);
+      });
+    })
+
+    app.get('/clear', function(req, res) {
+      UserProfile.remove({})
+      .then(data => {
+        res.send("all users removed");
+      })
+    });
+
+
+    // delete the user account
+    app.delete('/users', mainController.deleteUser);
 
     // post to the interested list of a user
     app.post('/users/interestedEvents', mainController.addEvent);

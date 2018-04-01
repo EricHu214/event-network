@@ -6,7 +6,8 @@ module.exports = {
   seedUser : seedUser,
   addEvent : addEvent,
   deleteEvent : deleteEvent,
-  usersGoingEvent : usersGoingEvent
+  usersGoingEvent : usersGoingEvent,
+  deleteUser : deleteUser
 }
 
 function seedUser(req, res) {
@@ -17,6 +18,29 @@ function seedUser(req, res) {
     .then(function(data) {
       console.log(data);
     });
+}
+
+function deleteUser(req, res) {
+  // UserProfile.remove({username:req.body.username}, function(err) {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  //   else {
+  //     req.session.destroy(function() {
+  //         res.json({message:"user deleted"});
+  //     });
+  //   }
+  // });
+
+  UserProfile.find({username:req.body.username})
+  .then(data => {
+    if (data) {
+      res.json({message:req.body.username});
+    }
+    else {
+      res.json({message:"no user found"});
+    }
+  });
 }
 
 function usersGoingEvent(req, res) {

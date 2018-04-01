@@ -72,7 +72,7 @@ module.exports = function(passport) {
                   {
                    $or: [
                           { 'email' : email },
-                          { 'username' : req.body.username }
+                          { 'username' : req.body.username.toLowerCase() }
                         ]
                  }, function(err, user) {
                     // if there are any errors, return the error
@@ -89,7 +89,7 @@ module.exports = function(passport) {
 
                         newUser.email    = email;
                         newUser.password = newUser.generateHash(password);
-                        newUser.username = req.body.username;
+                        newUser.username = req.body.username.toLowerCase();
                         newUser.description = req.body.description;
                         newUser.events = [];
 
