@@ -9,16 +9,16 @@ import '../App.css';
 class UserProfileView extends Component {
   deleteUser = () => {
     console.log(this.props.username)
-    fetch("https://a3server.herokuapp.com/users", {
+    // fetch("https://a3server.herokuapp.com/users/" + this.props.username, {
+    fetch("http://localhost:5000/users/" + this.props.username, {
       method: 'DELETE',
       credentials: 'include',
-      body:JSON.stringify({username:this.props.username.toLowerCase()})
+      data:JSON.stringify({username:this.props.username.toLowerCase()})
     })
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
       console.log(response.message);
-      console.log(response.obj);
       this.props.logOut();
       this.props.switchState(1);
     });

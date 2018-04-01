@@ -29,7 +29,8 @@ class LoginView extends Component {
     var data = {username, password, email, description}
 
     if (password === password2) {
-      fetch("https://a3server.herokuapp.com/users", {
+      // fetch("https://a3server.herokuapp.com/users", {
+      fetch("http://localhost:5000/users", {
         method: 'POST',
         headers: {
         'content-type': 'application/json'
@@ -59,7 +60,8 @@ class LoginView extends Component {
 
     var data = {username, password}
 
-    fetch("https://a3server.herokuapp.com/onlineUsers", {
+    // fetch("https://a3server.herokuapp.com/onlineUsers", {
+    fetch("http://localhost:5000/onlineUsers", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'

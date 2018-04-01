@@ -1,5 +1,6 @@
 const mainController = require('../controllers/main.controller.js');
 var UserProfile = require('../models/users');
+var Events = require('../models/events');
 
 module.exports = function(app, passport) {
 
@@ -30,9 +31,6 @@ module.exports = function(app, passport) {
 
     // Get list of users going to an event
     app.get('/goingEvents/:eventID', mainController.usersGoingEvent);
-
-    // get seeded user
-    app.get('/seedUser', mainController.seedUser);
 
     // Process the logout form
     app.put('/onlineUsers', function(req, res) {
@@ -65,20 +63,19 @@ module.exports = function(app, passport) {
       });
     })
 
-    app.get('/clear', function(req, res) {
-      UserProfile.remove({})
+    app.get('/events', function(req, res) {
+      Events.find({})
       .then(data => {
-        res.send("all users removed");
-      })
-    });
-
+        res.json(data);
+      });
+    })
 
     // delete the user account
-    app.delete('/users', mainController.deleteUser);
+    app.delete('/users/:username', mainController.deleteUser);
 
     // post to the interested list of a user
     app.post('/users/interestedEvents', mainController.addEvent);
-    app.delete('/users/interestedEvents', mainController.deleteEvent);
+    app.delete('/users/uninterestedEvents/:eventID/:username', mainController.deleteEvent);
 }
 
 function loggedIn(req, res, next) {

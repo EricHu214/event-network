@@ -3,42 +3,21 @@ var Events = require('../models/events');
 var mongoose = require('mongoose');
 
 module.exports = {
-  seedUser : seedUser,
   addEvent : addEvent,
   deleteEvent : deleteEvent,
   usersGoingEvent : usersGoingEvent,
   deleteUser : deleteUser
 }
 
-function seedUser(req, res) {
-    var user = new UserProfile({username:"user1", email:"email", password:"password", events:[]});
-    user.save();
-
-    UserProfile.find({})
-    .then(function(data) {
-      console.log(data);
-    });
-}
-
 function deleteUser(req, res) {
-  // UserProfile.remove({username:req.body.username}, function(err) {
-  //   if (err) {
-  //     console.error(err);
-  //   }
-  //   else {
-  //     req.session.destroy(function() {
-  //         res.json({message:"user deleted"});
-  //     });
-  //   }
-  // });
-
-  UserProfile.find({username:req.body.username})
-  .then(data => {
-    if (data) {
-      res.json({message:req.body.username});
+  UserProfile.remove({username:req.params.username}, function(err) {
+    if (err) {
+      console.error(err);
     }
     else {
-      res.json({message:"no user found"});
+      req.session.destroy(function() {
+          res.json({message:"user deleted"});
+      });
     }
   });
 }
@@ -132,15 +111,15 @@ function addEvent(req, res) {
 
 function deleteEvent(req, res) {
   UserProfile.findOne({
-    username: req.body.username
+    username: req.params.username
   })
   .then(data => {
-    if(data.events.includes(req.body.eventID)) {
+    if(data.events.includes(req.params.eventID)) {
       UserProfile.update({
-        username: req.body.username
+        username: req.params.username
       }, {
         $pull: {
-          events: req.body.eventID
+          events: req.params.eventID
         },
       },
       { multi: true },
@@ -150,13 +129,13 @@ function deleteEvent(req, res) {
           res.send(err);
         } else {
           // console.log(result);
-          Events.findOne({id:req.body.eventID})
+          Events.findOne({id:req.params.eventID})
           .then(data => {
             if (data) {
-              if (!data.interestedUsers.includes(req.body.username)) {
+              if (data.interestedUsers.includes(req.params.username)) {
                 Events.update(
-                  {id:req.body.eventID},
-                  {$pull:{interestedUsers:req.body.username}},
+                  {id:req.params.eventID},
+                  {$pull:{interestedUsers:req.params.username}},
                   function(err, result) {
                     if (err) {
                       res.status(404);
@@ -175,7 +154,7 @@ function deleteEvent(req, res) {
               }
             }
             else {
-              var new_event = new Events({id:req.body.eventID, interestedUsers:[req.body.username]});
+              var new_event = new Events({id:req.params.eventID, interestedUsers:[]});
               new_event.save();
               console.log("deleted");
               res.json({message:'deleted'});

@@ -24,7 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   credentials: true,
-  origin:"https://a3client.herokuapp.com"
+  origin:"http://localhost:3000"
+  // origin:"https://a3client.herokuapp.com"
 }));
 
 
