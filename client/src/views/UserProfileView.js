@@ -12,6 +12,7 @@ class UserProfileView extends Component {
       method: 'DELETE',
       body:{username:this.props.username}
     })
+    this.props.logOut();
     this.props.switchState(1);
   }
   render() {

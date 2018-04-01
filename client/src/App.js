@@ -183,6 +183,7 @@ class App extends Component {
       link_to_event = {this.link_to_event} switchState={this.switchState}
       {...this.state.userProfileData}
       myProfile={this.state.myProfile}
+      logOut={this.logOut}
       searchViewData={this.state.searchViewData}/>;
     }
     else if (this.state.view === 5) {
