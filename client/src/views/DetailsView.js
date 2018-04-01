@@ -15,6 +15,41 @@ class DetailsView extends Component {
     this.getAllEvents()
   }
 
+  interested(new_id, name) {
+    var data = {eventID: new_id, username: this.props.userData.username};
+    // fetch("https://a3server.herokuapp.com/users/interestedEvents", {
+    fetch("http://localhost:5000/users/interestedEvents", {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      this.props.interested(new_id, name)
+      this.getAllEvents()
+    });
+  }
+
+  uninterested(id) {
+    var data = {eventID: id, username: this.props.userData.username};
+    // fetch("https://a3server.herokuapp.com/users/uninterestedEvents/" = id + "/" + username, {
+    fetch("http://localhost:5000/users/uninterestedEvents/" + id + "/" + this.props.userData.username, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      this.props.notInterested(id)
+      this.getAllEvents()
+    });
+  }
+
   // Get all users who are interested in an event
   getAllEvents() {
     // fetch('https://a3server.herokuapp.com/goingEvents/'+this.props.id, {
@@ -33,7 +68,7 @@ class DetailsView extends Component {
         div =
         <div>
           <button className="interest_button" onClick={() =>
-            this.props.notInterested(this.props.id)}>
+            this.uninterested(this.props.id)}>
             not interested
           </button>
         </div>;
@@ -42,7 +77,7 @@ class DetailsView extends Component {
         div =
         <div>
           <button className="interest_button" onClick={() =>
-            this.props.interested(this.props.id, this.props.name)}>
+            this.interested(this.props.id, this.props.name)}>
             I am interested
           </button>
         </div>;

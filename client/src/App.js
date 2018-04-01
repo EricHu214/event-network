@@ -89,45 +89,20 @@ class App extends Component {
 
   // Add events that a user is interested in
   interested = (new_id, new_name) => {
-    var data = {eventID: new_id, username: userProfile.username};
-    // fetch("https://a3server.herokuapp.com/users/interestedEvents", {
-    fetch("http://localhost:5000/users/interestedEvents", {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      userProfile.goingEvents.push(new_id);
-      this.setState({});
-    })
+    userProfile.goingEvents.push(new_id);
+    this.setState({});
   }
 
   // Delete events that a user is not interested in
   notInterested = (id) => {
-    var data = {eventID: id, username: userProfile.username};
-    // fetch("https://a3server.herokuapp.com/users/uninterestedEvents/" = id + "/" + username, {
-    fetch("http://localhost:5000/users/uninterestedEvents/" + id + "/" + userProfile.username, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json'
+    // Remove the event from the list to refresh the view
+    var events = userProfile.goingEvents
+    for (var i = 0; i < events.length; i++) {
+      if (events[i] === id) {
+        userProfile.goingEvents.splice(i, 1);
       }
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      // Remove the event from the list to refresh the view
-      var events = userProfile.goingEvents
-      for (var i = 0; i < events.length; i++) {
-        if (events[i] === id) {
-          userProfile.goingEvents.splice(i, 1);
-        }
-      }
-      this.setState({});
-    })
+    }
+    this.setState({});
   }
 
   // Get the event given its id
