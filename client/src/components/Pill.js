@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import MaterialIcon from 'material-icons-react'
 import '../App.css';
 
 /*
-* Construct an event card element for display when you search for a particular
-* event
+* Create a pill item to display information items like usernames or event
+* names
 */
 class Pill extends Component {
   render() {

@@ -3,6 +3,7 @@ import FormField from '../components/FormField.js'
 import Error from '../components/Error.js'
 import '../App.css';
 
+// Add parameter to query for api
 function addParam(identifier, value) {
   if (value) return "&"+identifier+"="+value;
   return "";
@@ -12,14 +13,19 @@ function addParam(identifier, value) {
 * Construct the advanced search page
 */
 class AdvancedSearchView extends Component {
+
   constructor(props) {
     super(props);
     this.state = {error:""};
   }
+
+  // Validate the date thats passed in, must be YYYY-MM-DD format
   validate(startDate) {
     let validDate = startDate === "" || /^\d{4}-\d{2}-\d{2}$/.test(startDate);
     return validDate;
   }
+
+  // Handle the behaviour of clicking the submit button
   handleSubmit = (e) => {
     e.preventDefault()
     let keyword = this.refs.keyword.state.value.split(' ').join('+');
@@ -33,10 +39,10 @@ class AdvancedSearchView extends Component {
       addParam("classificationName", type));
       this.props.switchState(1,baseString);
     } else {
-      console.log("Kill me");
       this.setState({error: "Date must in form YYYY-MM-DD"});
     }
   }
+  
   render() {
     return (
       <div className="paper detailsBox">

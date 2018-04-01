@@ -9,15 +9,18 @@ import SearchBar from './components/SearchBar.js'
 import AdvancedSearchView from './views/AdvancedSearchView.js'
 // key = 	rgH0sHA67HAtSurrdPQON985G4BAMWTY
 
+// Base values for the user profile
 let userProfile = {
-  username:"placeholder",
-  description:"Hello there. Welcome to my profile!",
-  country:"country: Canada",
+  username:"",
+  description:"",
+  country:"",
   goingEvents: []
 }
 
 var q = {};
 
+// Add in base values for event information in case the data returned from
+// the api has missing values
 function cleanData (response) {
   if (response._embedded) {
     const baseEvent = {
@@ -34,12 +37,13 @@ function cleanData (response) {
   return {events: []}
 }
 
+// Main controller class for controlling the states of the front end
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = this.init();
 
-    fetch("https://a3server.herokuapp.com/checklogin", {
+    fetch("https://a3server.herokuapp.com/accounts", {
       method: 'GET',
       credentials: 'include'
     })
@@ -59,6 +63,7 @@ class App extends Component {
     return {searchViewData: {events: []}, view: 1, userProfileData: userProfile};
   }
 
+  // Login function
   logIn = (userInfo) => {
     userProfile.username = userInfo.username
     userProfile.goingEvents = userInfo.events
@@ -66,8 +71,9 @@ class App extends Component {
     this.setState({loggedIn: true})
   }
 
+  // Logout function
   logOut = () => {
-    fetch("https://a3server.herokuapp.com/logout", {
+    fetch("https://a3server.herokuapp.com/logoutData", {
       method: 'GET',
       credentials: 'include'
     })
@@ -79,6 +85,7 @@ class App extends Component {
     });
   }
 
+  // Add events that a user is interested in
   interested = (new_id, new_name) => {
     var data = {eventID: new_id, username: userProfile.username};
     fetch("https://a3server.herokuapp.com/interested", {
@@ -96,6 +103,7 @@ class App extends Component {
     })
   }
 
+  // Delete events that a user is not interested in
   notInterested = (id) => {
     var data = {eventID: id, username: userProfile.username};
     fetch("https://a3server.herokuapp.com/notInterested", {
@@ -119,20 +127,23 @@ class App extends Component {
     })
   }
 
+  // Get the event given its id
   link_to_event = (id) => {
     let obj = q.events.find(o => o.id === id);
     this.switchState(2, obj);
   }
 
+  // Get the name of an event given its id
   find_name = (id) => {
     return q.events.find(o => o.id === id).name
   }
 
+  // Visit another user's profile given their data
   visitUserProfile = (userProfile) => {
-    console.log("SLDKFJLDSKJ")
     this.setState({view: 4, userProfileData: userProfile});
   }
 
+  // Change views of the program
   switchState = (id, queryData) => {
     if (id === 1) {
       this.setState({view: id});

@@ -1,3 +1,5 @@
+// Functions for querying the api
+
 export function loadInitial() {
   return fetch('https://app.ticketmaster.com/discovery/v2/events.json?size=100&keyword=new+york&apikey=rgH0sHA67HAtSurrdPQON985G4BAMWTY',
   {

@@ -2,28 +2,28 @@ const mainController = require('../controllers/main.controller.js');
 var UserProfile = require('../models/users');
 
 module.exports = function(app, passport) {
-    // home page
 
-    app.get('/checklogin', function(req, res) {
+    // Query the accounts to implement session management
+    app.get('/accounts', function(req, res) {
       if (req.session.user) {
-        console.log("loading from session");
         UserProfile.findOne({username:req.session.user.username})
         .then(data =>{
           res.json({message:"loggedin", user:data});
         })
       }
       else {
-        console.log('no session');
         res.json({user:false, 'message': 'not authenticated'});
       }
     });
 
+    // Get list of users going to an event
     app.get('/goingEvents/:eventID', mainController.usersGoingEvent);
 
-    // seed sample user
+    // get seeded user
     app.get('/seedUser', mainController.seedUser);
 
-    app.get('/logout', function(req, res) {
+    // Process the logout form
+    app.get('/logoutData', function(req, res) {
       req.logout();
       req.session.destroy(function() {
           res.json({message:"logged out"});
@@ -31,11 +31,11 @@ module.exports = function(app, passport) {
     });
 
     app.get('/', function(req, res) {
-      res.send("successfu");
+      res.send("successful");
     })
 
     // process the login form
-    app.post('/login', function(req, res) {
+    app.post('/loginForm', function(req, res) {
       passport.authenticate('local-login', function(err, user, info) {
         console.log(info);
         if (err) {
@@ -48,9 +48,8 @@ module.exports = function(app, passport) {
     });
 
     // process the signup form
-    app.post('/signup', function(req, res) {
+    app.post('/userAccounts', function(req, res) {
       passport.authenticate('local-signup', function(err, user, info) {
-        console.log(info);
         if (err) {
           console.error(err);
         }
@@ -60,7 +59,7 @@ module.exports = function(app, passport) {
       })(req, res);
     });
 
-
+    // post to the interested list of a user
     app.post('/interested', mainController.addEvent);
     app.post('/notInterested', mainController.deleteEvent);
 }

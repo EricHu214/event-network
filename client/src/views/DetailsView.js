@@ -6,6 +6,7 @@ import '../App.css';
 * Construct the details page for the user app
 */
 class DetailsView extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +15,7 @@ class DetailsView extends Component {
     this.getAllEvents()
   }
 
+  // Get all users who are interested in an event
   getAllEvents() {
     fetch('https://a3server.herokuapp.com/goingEvents/'+this.props.id, {
       method: 'GET'
@@ -48,7 +50,7 @@ class DetailsView extends Component {
     return (
       <div className="detailsBoxContainer">
         <div className="detailsBox">
-          <img className="displayImage" src={this.props.images[0].url} />
+          <img alt="" className="displayImage" src={this.props.images[0].url} />
           <div className="paper detailsTextBox">
             <div className="header1">{this.props.name}</div>
             <div className="header2">{this.props.dates.start.localTime}, {this.props.dates.start.localDate}</div>

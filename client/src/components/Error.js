@@ -3,8 +3,8 @@ import MaterialIcon from 'material-icons-react'
 import '../App.css';
 
 /*
-* Construct an event card element for display when you search for a particular
-* event
+* Construct a warning for when the user gives unexpected input or there are
+* no events to display etc.
 */
 class Error extends Component {
   render() {

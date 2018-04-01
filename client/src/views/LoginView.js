@@ -14,10 +14,12 @@ class LoginView extends Component {
     this.state = {register: this.props.register, error: ""};
   }
 
+  // Clear the error when you leave the view
   componentWillReceiveProps(props) {
     this.setState({error: ""});
   }
 
+  // Handle the behaviour when you submit
   submitRegister = () => {
     let username = this.refs.rUsername.state.value
     let password = this.refs.rPassword.state.value
@@ -26,25 +28,29 @@ class LoginView extends Component {
     let description = this.refs.rDescription.state.value
     var data = {username, password, email, description}
 
-    fetch("https://a3server.herokuapp.com/signup", {
-      method: 'POST',
-      headers: {
-      'content-type': 'application/json'
-      },
-      body:JSON.stringify(data),
-      credentials: 'include'
-    })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      if (response.success) {
-        this.setState({error: ""});
-        this.props.logIn(response.success);
-        this.props.switchState(1);
-      }
-      else {
-        this.setState({error: response.message});
-      }});
+    if (password === password2) {
+      fetch("https://a3server.herokuapp.com/userAccounts", {
+        method: 'POST',
+        headers: {
+        'content-type': 'application/json'
+        },
+        body:JSON.stringify(data),
+        credentials: 'include'
+      })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => {
+        if (response.success) {
+          this.setState({error: ""});
+          this.props.logIn(response.success);
+          this.props.switchState(1);
+        }
+        else {
+          this.setState({error: response.message});
+        }});
+    } else {
+      this.setState({error: "Passwords do not match"})
+    }
   }
 
   submitLogin = () => {
@@ -53,7 +59,7 @@ class LoginView extends Component {
 
     var data = {username, password}
 
-    fetch("https://a3server.herokuapp.com/login", {
+    fetch("https://a3server.herokuapp.com/loginForm", {
       method: 'POST',
       headers: {
       'content-type': 'application/json'

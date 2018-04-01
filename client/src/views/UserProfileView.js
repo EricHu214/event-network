@@ -7,9 +7,6 @@ import '../App.css';
 * displayed
 */
 class UserProfileView extends Component {
-  // Define the behaviour that happens when we click on an event in the user's
-  // list of events they're going to
-
   render() {
     let interestedList = Object.keys(this.props.goingEvents)
     return (
