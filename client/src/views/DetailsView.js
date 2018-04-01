@@ -35,7 +35,7 @@ class DetailsView extends Component {
 
   uninterested(id) {
     var data = {eventID: id, username: this.props.userData.username};
-    // fetch("https://a3server.herokuapp.com/users/uninterestedEvents/" = id + "/" + username, {
+    // fetch("https://a3server.herokuapp.com/users/uninterestedEvents/" + id + "/" + username, {
     fetch("http://localhost:5000/users/uninterestedEvents/" + id + "/" + this.props.userData.username, {
       method: 'DELETE',
       headers: {
