@@ -7,6 +7,13 @@ import '../App.css';
 * displayed
 */
 class UserProfileView extends Component {
+  deleteUser = () => {
+    fetch("https://a3server.herokuapp.com/users", {
+      method: 'DELETE',
+      body:{username:this.props.username}
+    })
+    this.switchState(1);
+  }
   render() {
     let interestedList = Object.keys(this.props.goingEvents)
     return (
@@ -23,6 +30,9 @@ class UserProfileView extends Component {
             key={this.props.goingEvents[x]}
             label={this.props.find_name(this.props.goingEvents[x])} />)}
         </div>
+        {this.props.myProfile &&
+          <div className="generalButton" onClick={this.deleteUser}>DELETE ACCOUNT</div>
+        }
       </div>
     );
   }

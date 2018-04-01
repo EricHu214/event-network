@@ -140,7 +140,7 @@ class App extends Component {
 
   // Visit another user's profile given their data
   visitUserProfile = (userProfile) => {
-    this.setState({view: 4, userProfileData: userProfile});
+    this.setState({view: 4, userProfileData: userProfile, myProfile: false});
   }
 
   // Change views of the program
@@ -155,8 +155,7 @@ class App extends Component {
     }
     else if (id === 3) this.setState({view: id, loginViewData: queryData});
     else if (id === 4) {
-      console.log(userProfile)
-      this.setState({view: id, userProfileData: userProfile});
+      this.setState({view: id, userProfileData: userProfile, myProfile: true});
     }
     else if (id === 5) this.setState({view: id});
   }
@@ -183,6 +182,7 @@ class App extends Component {
       view = <UserProfileView find_name = {this.find_name}
       link_to_event = {this.link_to_event} switchState={this.switchState}
       {...this.state.userProfileData}
+      myProfile={this.state.myProfile}
       searchViewData={this.state.searchViewData}/>;
     }
     else if (this.state.view === 5) {
