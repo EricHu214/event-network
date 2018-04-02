@@ -60,7 +60,6 @@ class LoginView extends Component {
 
     var data = {username, password}
 
-    // fetch("https://a3server.herokuapp.com/onlineUsers", {
     fetch("http://localhost:5000/onlineUsers", {
       method: 'POST',
       headers: {
