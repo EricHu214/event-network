@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import './App.css';
 import * as queries from './api/queries.js'
@@ -17,6 +18,7 @@ let userProfile = {
   goingEvents: []
 }
 
+// used to store the events from the third party api
 var q = {};
 
 // Add in base values for event information in case the data returned from
