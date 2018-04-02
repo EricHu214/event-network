@@ -75,7 +75,6 @@ class App extends Component {
 
   // Logout function
   logOut = () => {
-    // fetch("https://a3server.herokuapp.com/onlineUsers", {
     fetch("http://localhost:5000/onlineUsers", {
       method: 'PUT',
       credentials: 'include'
