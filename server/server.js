@@ -2,17 +2,17 @@
 require('dotenv').config();
 
 // get all the tools
-var express  = require('express');
+var express = require('express');
 var session = require('express-session');
 var cors = require('cors')
-var app      = express();
+var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
-var path     = require('path');
-var morgan       = require('morgan');
+var path = require('path');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var port     = process.env.PORT || 5000;
+var bodyParser = require('body-parser');
+var port = process.env.PORT || 5000;
 
 // set up
 require('./config/passport')(passport);

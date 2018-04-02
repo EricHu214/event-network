@@ -11,6 +11,7 @@ class SearchBar extends Component {
     let parsedKeywords = this.refs.keywords.value.split(' ').join('+')
     this.props.switchState(1, "&keyword="+parsedKeywords)
   }
+  
   render() {
     return (
       <div className="searchBar">
