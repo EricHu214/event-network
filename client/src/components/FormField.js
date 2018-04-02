@@ -28,7 +28,7 @@ class FormField extends Component {
                 </select>
               : <input id={this.props.id}
                 onChange={evt => this.updateInputValue(evt)}
-                className={`formFieldInput ${this.props.password && "passwordInput"}`} type="text" />}
+                className="formFieldInput" type={this.props.password ? "password" : "text"} />}
           </label>
         </div>
       </div>
