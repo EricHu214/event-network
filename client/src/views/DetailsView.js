@@ -15,6 +15,7 @@ class DetailsView extends Component {
     this.getAllEvents()
   }
 
+  // handles the interest function where the user can store an event in their interest list by clicking a button
   interested(new_id, name) {
     var data = {eventID: new_id, username: this.props.userData.username};
     // fetch("https://a3server.herokuapp.com/users/interestedEvents", {
@@ -33,6 +34,7 @@ class DetailsView extends Component {
     });
   }
 
+  // handles the uninterested feature where the user clicks "uninterested" after clicking "i am interested"
   uninterested(id) {
     var data = {eventID: id, username: this.props.userData.username};
     // fetch("https://a3server.herokuapp.com/users/uninterestedEvents/" + id + "/" + username, {

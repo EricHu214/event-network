@@ -19,7 +19,7 @@ class LoginView extends Component {
     this.setState({error: ""});
   }
 
-  // Handle the behaviour when you submit
+  // Handle the behaviour when you submit on the register page
   submitRegister = () => {
     let username = this.refs.rUsername.state.value
     let password = this.refs.rPassword.state.value
@@ -54,6 +54,7 @@ class LoginView extends Component {
     }
   }
 
+  // handle behaviour when you submit on the login page
   submitLogin = () => {
     let username = this.refs.lUsername.state.value;
     let password = this.refs.lPassword.state.value;
