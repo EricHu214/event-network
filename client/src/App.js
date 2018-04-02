@@ -45,7 +45,6 @@ class App extends Component {
     super(props);
     this.state = this.init();
 
-    // fetch("https://a3server.herokuapp.com/users", {
     fetch("http://localhost:5000/users", {
       method: 'GET',
       credentials: 'include'

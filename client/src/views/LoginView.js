@@ -29,7 +29,6 @@ class LoginView extends Component {
     var data = {username, password, email, description}
 
     if (password === password2) {
-      // fetch("https://a3server.herokuapp.com/users", {
       fetch("http://localhost:5000/users", {
         method: 'POST',
         headers: {
