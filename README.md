@@ -1,12 +1,26 @@
-# Starting the application
+## Viewing the application locally
+### Installing the dependencies
 
-Run 'npm install' for the dependencies.
+Go to server and client directory.
 
-Run 'npm start' to start the server.
+Run 'npm install' for dependencies.
 
-Locally runs on 0.0.0.0:3000
+```javascript
+npm install
+```
 
-# Viewing the application online
+### Starting the application
+
+Go to server and client directory.
+
+Run 'npm start' for starting the client and server.
+
+```javascript
+npm start
+```
+It will locally run on 0.0.0.0:3000
+
+## Viewing the application online
 Deployed via heroku.
 Our application can be viewed at https://a3client.herokuapp.com/
 
