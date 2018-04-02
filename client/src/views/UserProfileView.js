@@ -11,7 +11,6 @@ class UserProfileView extends Component {
     var response = window.confirm("Are you sure you want to delete your account?");
     if (response) {
         console.log(this.props.username);
-        // fetch("https://a3server.herokuapp.com/users/" + this.props.username, {
         fetch("http://localhost:5000/users/" + this.props.username, {
           method: 'DELETE',
           credentials: 'include',
