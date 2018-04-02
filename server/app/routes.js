@@ -13,7 +13,8 @@ module.exports = function(app, passport) {
       if (req.session.user) {
         UserProfile.findOne({username:req.session.user.username})
         .then(data =>{
-          res.json({message:"loggedin", user:data});
+          let returnData = {username:data.username, description:data.description, events:data.events};
+          res.json({message:"loggedin", user:returnData});
         })
       }
       else {
