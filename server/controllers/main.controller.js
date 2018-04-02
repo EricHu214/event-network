@@ -1,14 +1,37 @@
+// controller methods for a route
+
+// import
 var UserProfile = require('../models/users');
 var Events = require('../models/events');
 var mongoose = require('mongoose');
 
+// exporting all methods
 module.exports = {
   addEvent : addEvent,
   deleteEvent : deleteEvent,
   usersGoingEvent : usersGoingEvent,
-  deleteUser : deleteUser
+  deleteUser : deleteUser,
+  getInterestedEvents: getInterestedEvents,
+  getUsers: getUsers,
 }
 
+// get a list of all users registered
+function getUsers(req, res) {
+  UserProfile.find({})
+  .then(data => {
+    res.json(data);
+  });
+}
+
+// get a list of all events marked interested by users
+function getInterestedEvents(req, res) {
+  Events.find({})
+  .then(data => {
+    res.json(data);
+  });
+}
+
+// delete a currently logged-in user
 function deleteUser(req, res) {
   UserProfile.remove({username:req.params.username}, function(err) {
     if (err) {
@@ -22,6 +45,7 @@ function deleteUser(req, res) {
   });
 }
 
+// get a list of users going to a specific event
 function usersGoingEvent(req, res) {
   console.log(req.params.eventID);
   Events.findOne({id:req.params.eventID})
@@ -52,6 +76,7 @@ function usersGoingEvent(req, res) {
   });
 }
 
+// add an event to a user's interested events list
 function addEvent(req, res) {
   UserProfile.findOne({
     username: req.body.username
@@ -109,6 +134,7 @@ function addEvent(req, res) {
   })
 }
 
+// delete an event from a user's interested events list
 function deleteEvent(req, res) {
   UserProfile.findOne({
     username: req.params.username

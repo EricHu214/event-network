@@ -1,4 +1,6 @@
+// db and session for heroku
 require('dotenv').config();
+
 // get all the tools
 var express  = require('express');
 var session = require('express-session');
@@ -28,18 +30,13 @@ app.use(cors({
   // origin:"https://a3client.herokuapp.com"
 }));
 
-
-app.use(express.static(path.join(__dirname, '/public')));
-app.set('views', __dirname + '/views');
-
-// for passport
+// passport & session
 app.use(session({
     secret: 'iloveme',
     resave: true,
     saveUninitialized: true,
     cookie: { secure: false }
 }));
-
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

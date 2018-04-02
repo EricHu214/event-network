@@ -1,6 +1,6 @@
 // models/events.js
 // Schema that represents many-to-many relationships with users
-// A schema that pairs event with a list of users
+// Pairs event with a list of users
 var mongoose = require('mongoose');
 
 // define the schema for our events model

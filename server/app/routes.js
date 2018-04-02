@@ -3,8 +3,12 @@ var UserProfile = require('../models/users');
 var Events = require('../models/events');
 
 module.exports = function(app, passport) {
+    // test if server is running
+    app.get('/', function(req, res) {
+      res.send("successful");
+    });
 
-    // Get user information
+    // get currently logged-in user information
     app.get('/users', function(req, res) {
       if (req.session.user) {
         UserProfile.findOne({username:req.session.user.username})
@@ -29,19 +33,12 @@ module.exports = function(app, passport) {
       })(req, res);
     });
 
-    // Get list of users going to an event
-    app.get('/goingEvents/:eventID', mainController.usersGoingEvent);
-
-    // Process the logout form
+    // process the logout form
     app.put('/onlineUsers', function(req, res) {
       req.logout();
       req.session.destroy(function() {
           res.json({message:"logged out"});
       });
-    });
-
-    app.get('/', function(req, res) {
-      res.send("successful");
     });
 
     // process the login form
@@ -56,25 +53,22 @@ module.exports = function(app, passport) {
       })(req, res);
     });
 
-    app.get('/userlist', function(req, res) {
-      UserProfile.find({})
-      .then(data => {
-        res.json(data);
-      });
-    })
+    // get a list of users going to a specific event
+    app.get('/goingEvents/:eventID', mainController.usersGoingEvent);
 
-    app.get('/events', function(req, res) {
-      Events.find({})
-      .then(data => {
-        res.json(data);
-      });
-    })
+    // retrieve a list of all users
+    app.get('/userlist', mainController.getUsers);
+
+    // retrieve a list of all events marked interested by users
+    app.get('/events', mainController.getInterestedEvents);
 
     // delete the user account
     app.delete('/users/:username', mainController.deleteUser);
 
-    // post to the interested list of a user
+    // add an event to a user's interested events list
     app.post('/users/interestedEvents', mainController.addEvent);
+
+    // delete an event from a user's interested events list
     app.delete('/users/uninterestedEvents/:eventID/:username', mainController.deleteEvent);
 }
 

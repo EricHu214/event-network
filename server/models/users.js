@@ -1,5 +1,5 @@
-// models/user.js
-// load the things we need
+// models/users.js
+// Schema that represents a collecton of users
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
@@ -22,5 +22,5 @@ userProfileSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-// // create the model for users and generalize it to our app
+// create the model for users and generalize it to our app
 module.exports = mongoose.model('UserProfile', userProfileSchema);
