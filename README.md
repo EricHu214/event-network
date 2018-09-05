@@ -2,6 +2,8 @@
 ### Web Application Features
 
 ![alt](./images/image1.png)
+
+
 ![alt](./images/image2.png)
 
 *Search* - Our application has a search function to allow users to discover new events. It has several filters (e.g. by title, city, start date, or type) to assist users in narrowing down their search to only events that they're interested in.
